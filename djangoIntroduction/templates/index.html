@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const inputField = document.getElementById("filter_title");
+            const submitBtn = document.getElementById("submit");
+            let debounceTimeout;
+            
+            inputField.focus();
+            const length = inputField.value.length;
+            inputField.setSelectionRange(length, length);
+            
+            function debounce(func, delay) {
+                return function (...args) {
+                    clearTimeout(debounceTimeout);
+                    debounceTimeout = setTimeout(() => func.apply(this, args), delay);
+                }
+            }
+            inputField.addEventListener("input", debounce(function () {
+                submitBtn.click();
+            }, 200));
+        })
+    </script>
+    
+</head>
+<body>
+{#    <h1>Tasks</h1>#}
+{#    {% if tasks %}#}
+{#        {% for task in tasks %}#}
+{#        <ul>#}
+{#           <li>{{ task.name }} : {{ task.description }} ({{ task.created_at }})</li> #}
+{#        </ul>#}
+{#        {% endfor %}#}
+{#    {% else %}#}
+{#        <p>There are no created tasks!</p>#}
+{#    {% endif %}#}
+
+
+{#    <h1>Tasks</h1>#}
+{#    {% if tasks %}#}
+{#        <p>You have {{ tasks|length }} tasks!</p>#}
+{#    {% endif %}#}
+    
+    <form method="get"> 
+        <input type="text" id="filter_title" name="filter_title" value="{{ search_title }}" placeholder="Search">
+        <button id="submit" style="display: none" type="submit">Search</button>
+    </form>
+    
+    {% for task in tasks %}
+    <ul>
+        <li>{{ task.name }} : {{ task.description }} ({{ task.created_at }})</li> 
+    </ul>
+    {% empty %}
+        <p>There are no created tasks!</p>
+    {% endfor %}
+
+</body>
+</html>
