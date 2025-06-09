@@ -4,10 +4,6 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 
-
-# def index(request):
-#     return HttpResponse(f"Welcome to the forum app!")
-
 def index(request):
     context = {
         "current_time": datetime.now(),
@@ -24,4 +20,27 @@ def index(request):
 
 
 def dashboard(request):
-    return render(request, 'base.html')
+    context = {
+        "posts": [
+            {
+                "title": "How to create Django project",
+                "author": "Maria Kirilova",
+                "content": "",
+                "created_at": datetime.now(),
+            },
+            {
+                "title": "How to create HTML file ",
+                "author": "Ivan Abadjiev",
+                "content": "It is the **most easiest** <i>thing</i> to do",
+                "created_at": datetime.now(),
+            },
+            {
+                "title": "How to create CSS file",
+                "author": "",
+                "content": "### You should follow my steps",
+                "created_at": datetime.now(),
+            },
+        ]
+    }
+
+    return render(request, 'dashboard.html', context)
