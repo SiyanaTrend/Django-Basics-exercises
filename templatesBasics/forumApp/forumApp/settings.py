@@ -112,6 +112,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+# CSRF_COOKIE_SECURE = True  # only https sending
+CSRF_COOKIE_HTTPONLY = True   # can't get it with document.cookie
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
