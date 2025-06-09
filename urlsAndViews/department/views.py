@@ -15,19 +15,21 @@ def view_with_slug(request, slug):
     return HttpResponse(f'<h1>Department from slug: {department} </h1>')
 
 def view_with_pk_slug(request, pk, slug):
-    # # Option 1 for error 404
+    # # Option 1 for error 404 => file with name 404.html should be shown,
+    # when:
+    # DEBUG = False
+    # ALLOWED_HOSTS = ['*'] => use it only when testing, never in production. It means everybody can send us requests
     departments = Department.objects.filter(pk=pk, slug=slug)
-    #
     if not departments:
         raise Http404
-    # return HttpResponse(f'<h1>ID: {pk} Department: {departments.first()} </h1>')
+    return HttpResponse(f'<h1>ID: {pk} Department: {departments.first()} </h1>')
 
     # # Option 2
     # department = get_object_or_404(Department, pk=pk, slug=slug)
     # return HttpResponse(f'<h1>ID: {pk} Department: {department} </h1>')
 
     # # Option 3
-    return HttpResponseNotFound()
+    # return HttpResponseNotFound()
 
 
 def view_with_regex(request, archive_year: int):
@@ -54,4 +56,5 @@ def redirect_to_home_page(request):
     # return redirect(index, permanent=True)
 
     # option 3 - best option => put a name in urls path: path('', views.index, name='home')
+    # when using permanent=True => the data is cashed
     return redirect('home', permanent=True)
