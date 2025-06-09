@@ -10,9 +10,11 @@ def index(request):
 def show_department_by_id(request, pk: int):
     return HttpResponse(f"<h1>Department by ID: {pk}<h1>")
 
+
 def view_with_slug(request, slug):
     department = Department.objects.get(slug=slug)
     return HttpResponse(f'<h1>Department from slug: {department} </h1>')
+
 
 def view_with_pk_slug(request, pk, slug):
     # # Option 1 for error 404 => file with name 404.html should be shown,
@@ -47,6 +49,7 @@ def view_with_path(request, variable):
 
 def redirect_to_softuni(request):
     return redirect('https://softuni.bg')
+
 
 def redirect_to_home_page(request):
     # # option 1 - breaks abstractions
