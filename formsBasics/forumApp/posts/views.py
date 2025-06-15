@@ -1,11 +1,12 @@
-from datetime import datetime
+from django.db.models import Q
 
-from django.shortcuts import render
-from posts.forms import PostBaseForm
+from django.shortcuts import render, redirect
+from posts.forms import PostCreateForm, PostEditForm, PostDeleteForm, SearchForm
+from posts.models import Post
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'common/base.html')
 
 # use with PostForm from the forms.py:
 # def index(request):
@@ -41,43 +42,77 @@ def index(request):
 #     return render(request, 'index.html', context)
 
 
-def home_page(request):
-    context = {
-        "current_time": datetime.now(),
-        "person": {
-            "age": 20,
-            "height": 1.90,
-        },
-        "IDs": ["1223", "exe1234", "si5684"],
-        "some_text": "everything works well!",
-        "no_text": "",
-        "users": ["pesho", "ivan", "stamat", "maria", "magdalena"]
-    }
-    return render(request, 'base.html', context)
-
-
 def dashboard(request):
+    search_form = SearchForm(request.GET)
+    posts = Post.objects.all()
+
+    if request.method == "GET" and search_form.is_valid():
+        query = search_form.cleaned_data.get('query')
+        posts = posts.filter(
+            Q(title__icontains=query)
+                |
+            Q(content__icontains=query)
+                |
+            Q(author__icontains=query)
+        )
+
     context = {
-        "posts": [
-            {
-                "title": "How to create Django project",
-                "author": "Maria Kirilova",
-                "content": "",
-                "created_at": datetime.now(),
-            },
-            {
-                "title": "How to create HTML file ",
-                "author": "Ivan Abadjiev",
-                "content": "It is the **most easiest** <i>thing</i> to do",
-                "created_at": datetime.now(),
-            },
-            {
-                "title": "How to create CSS file",
-                "author": "",
-                "content": "### You should follow my steps",
-                "created_at": datetime.now(),
-            },
-        ]
+        "posts": posts,
+        "search_form": search_form,
     }
 
-    return render(request, 'dashboard.html', context)
+    return render(request, 'posts/dashboard.html', context)
+
+
+def add_post(request):
+    form = PostCreateForm(request.POST or None)
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect('dashboard')
+
+    context = {
+        "form": form,
+    }
+
+    return render(request, 'posts/add-post.html', context)
+
+
+def edit_post(request, pk: int):
+    post = Post.objects.get(pk=pk)
+    form = PostEditForm(request.POST or None, instance=post)
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect('dashboard')
+
+    context = {
+        "form": form,
+    }
+
+    return render(request, 'posts/edit-post.html', context)
+
+
+def post_details(request, pk: int):
+    post = Post.objects.get(pk=pk)
+
+    context = {
+        "post": post,
+    }
+
+    return render(request, 'posts/post-details.html', context)
+
+
+def delete_post(request, pk: int):
+    post = Post.objects.get(pk=pk)
+    form = PostDeleteForm(instance=post)
+
+    if request.method == "POST":
+        post.delete()
+        return redirect('dashboard')
+
+    context = {
+        "form": form,
+    }
+
+    return render(request, 'posts/delete-post.html', context)

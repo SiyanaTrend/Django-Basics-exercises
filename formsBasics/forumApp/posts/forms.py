@@ -4,9 +4,9 @@ from posts.models import Post
 
 
 class PostBaseForm(forms.ModelForm):
-    lecturer = forms.BooleanField(
-        required=True,
-    )
+    # lecturer = forms.BooleanField(
+    #     required=True,
+    # )
     class Meta:
         model = Post
         fields = '__all__'
