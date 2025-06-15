@@ -3,34 +3,47 @@ from django import forms
 from posts.models import Post
 
 
-class PostForm(forms.ModelForm):
+class PostBaseForm(forms.ModelForm):
     lecturer = forms.BooleanField(
         required=True,
     )
     class Meta:
         model = Post
         fields = '__all__'
-        # fields = ('title', 'content')
-        # exclude = ['content']
-        # widgets = {
-        #     'title': forms.NumberInput,
-        # }
-        # help_texts = {
-        #     'title': 'Put a title'
-        # }
-        # labels = {
-        #     'title': 'This is title'
-        # }
-        # error_messages = {
-        #     'title': {
-        #         'required': '',
-        #     }
-        # }
-        widgets = {
-            'language': forms.RadioSelect(
-                attrs={'class': 'radio-select'},
-            )
-        }
+    widgets = {
+        'language': forms.RadioSelect(
+            attrs={'class': 'radio-select'},
+        )
+    }
+
+# class PostForm(forms.ModelForm):
+#     lecturer = forms.BooleanField(
+#         required=True,
+#     )
+#     class Meta:
+#         model = Post
+#         fields = '__all__'
+#         # fields = ('title', 'content')
+#         # exclude = ['content']
+#         # widgets = {
+#         #     'title': forms.NumberInput,
+#         # }
+#         # help_texts = {
+#         #     'title': 'Put a title'
+#         # }
+#         # labels = {
+#         #     'title': 'This is title'
+#         # }
+#         # error_messages = {
+#         #     'title': {
+#         #         'required': '',
+#         #     }
+#         # }
+#         widgets = {
+#             'language': forms.RadioSelect(
+#                 attrs={'class': 'radio-select'},
+#             )
+#         }
 
 # class PostForm(forms.ModelForm) instead of =>
 # class PostForm(forms.Form):

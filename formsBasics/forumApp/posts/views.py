@@ -1,18 +1,23 @@
 from datetime import datetime
 
 from django.shortcuts import render
-from posts.forms import PostForm
+from posts.forms import PostBaseForm
+
 
 def index(request):
-    form = PostForm(request.POST or None)
+    return render(request, 'index.html')
 
-    if request.method == 'POST' and form.is_valid():
-        form.save()
-
-    context = {
-        'form': form,
-    }
-    return render(request, 'index.html', context)
+# use with PostForm from the forms.py:
+# def index(request):
+#     form = PostForm(request.POST or None)
+#
+#     if request.method == 'POST' and form.is_valid():
+#         form.save()
+#
+#     context = {
+#         'form': form,
+#     }
+#     return render(request, 'index.html', context)
 
 
 # use with examples from the forms.py:
