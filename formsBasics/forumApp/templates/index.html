@@ -20,11 +20,19 @@
 
 
     <form method="post">
-        {% csrf_token %}                     
-        <input name='my_text' type='text'/>
+        {% csrf_token %}  
+        <label>My text is</label>
+        <input name='my_text' maxlength="10" type='text'/>
         <button>Submit</button>
     </form>
 
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.errors }}
+        {{ form }}
+        <button>Submit</button>
+    </form>
 
 </body>
 </html>
