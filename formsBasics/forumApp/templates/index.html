@@ -6,11 +6,25 @@
 </head>
 <body>
 
-  
-    <form>
-        <input name='my_text' type='text'/>  {# http://localhost:8000/?my_text=sisi #}
+{#  #}
+{#    <form>#}
+{#        <input name='my_text' type='text'/>  {# http://localhost:8000/?my_text=sisi #}
+{#        <button>Submit</button>#}
+{#    </form>#}
+
+{#    <form method="post">#}
+{#        {% csrf_token %}                     {# http://localhost:8000/ #}
+{#        <input name='my_text' type='text'/>  {# QueryDict: {'crsfmiddlewaretoken': ['gKeiX8qbR0ZJOvzPs84GRn9n4'], 'my_text':['sisi'] #}
+{#        <button>Submit</button>#}
+{#    </form>#}
+
+
+    <form method="post">
+        {% csrf_token %}                     
+        <input name='my_text' type='text'/>
         <button>Submit</button>
     </form>
+
 
 </body>
 </html>
