@@ -16,6 +16,32 @@ class PostBaseForm(forms.ModelForm):
         )
     }
 
+class PostCreateForm(PostBaseForm):
+    pass
+
+class PostEditForm(PostBaseForm):
+    pass
+
+class PostDeleteForm(PostBaseForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:  # disabled all fields at once
+            self.fields[field].disabled = True
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField(
+        label='',
+        required=False,
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Search for posts...'},
+        )
+    )
+
+
+
 # class PostForm(forms.ModelForm):
 #     lecturer = forms.BooleanField(
 #         required=True,
