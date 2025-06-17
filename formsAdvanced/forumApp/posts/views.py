@@ -1,7 +1,9 @@
 from django.db.models import Q
+from django.forms import modelform_factory
+
 
 from django.shortcuts import render, redirect
-from posts.forms import PostCreateForm, PostEditForm, PostDeleteForm, SearchForm
+from posts.forms import PostCreateForm, PostDeleteForm, SearchForm
 from posts.models import Post
 
 
@@ -46,6 +48,9 @@ def add_post(request):
 
 def edit_post(request, pk: int):
     post = Post.objects.get(pk=pk)
+    
+    PostEditForm = modelform_factory(Post, fields='__all__')
+
     form = PostEditForm(request.POST or None, instance=post)
 
     if request.method == "POST" and form.is_valid():
