@@ -14,5 +14,11 @@
                 <span>Post by {{ post.author|default:"Anonymous" }} on {{ post.created_at|date:'d-M-Y' }}</span>
             </div>
         </div>
+    
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form }}
+            <button>ADD</button>
+        </form>
     </div>
 {% endblock %}

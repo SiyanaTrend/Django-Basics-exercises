@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
-from posts.models import Post
+from posts.models import Post, Comment
 from posts.validators import BadLanguageValidator
 from posts.mixins import ReadOnlyFieldsMixin
 
@@ -89,3 +89,20 @@ class SearchForm(forms.Form):
             attrs={'placeholder': 'Search for posts...'},
         )
     )
+
+
+class CommentFrom(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        labels = {
+            'content': '',
+        }
+        widgets = {
+            'content': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Add a comment...'
+                }
+            )
+        }

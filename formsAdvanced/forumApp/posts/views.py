@@ -3,7 +3,7 @@ from django.forms import modelform_factory
 
 
 from django.shortcuts import render, redirect
-from posts.forms import PostCreateForm, PostDeleteForm, SearchForm
+from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom
 from posts.models import Post
 
 
@@ -70,9 +70,17 @@ def edit_post(request, pk: int):
 
 def post_details(request, pk: int):
     post = Post.objects.get(pk=pk)
+    comment_form = CommentFrom(request.POST or None)
+
+    if request.method == "POST" and comment_form.is_valid():
+        comment = comment_form.save(commit=False)   # get the comment without saving it in the database, because there are more fields in the Comment model
+        comment.author = request.user.username
+        comment.post = post
+        comment.save()  # when we get the author and the post we save the comment in the database
 
     context = {
         "post": post,
+        "comment_form": comment_form,
     }
 
     return render(request, 'posts/post-details.html', context)
