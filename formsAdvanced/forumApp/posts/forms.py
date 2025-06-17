@@ -56,6 +56,22 @@ class PostBaseForm(forms.ModelForm):
 
         return cleaned_data
 
+
+    def save(self, commit=True):
+        
+        """commit=False => create the instance, but not in the database"""
+        post = super().save(commit=False)
+
+        post.author = post.author.capitalize()
+
+        """save the post with author's name with capitalize() in database"""
+        if commit:
+            post.save()
+
+        """return the post with no corrections without saving it in the database"""
+        return post
+
+
 class PostCreateForm(PostBaseForm):
     pass
 
