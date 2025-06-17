@@ -8,40 +8,6 @@ from posts.models import Post
 def index(request):
     return render(request, 'common/base.html')
 
-# use with PostForm from the forms.py:
-# def index(request):
-#     form = PostForm(request.POST or None)
-#
-#     if request.method == 'POST' and form.is_valid():
-#         form.save()
-#
-#     context = {
-#         'form': form,
-#     }
-#     return render(request, 'index.html', context)
-
-
-# use with examples from the forms.py:
-# def index(request):
-#     form = MyFrom(request.POST or None)
-#
-#     # # equals:
-#     # if request.method == 'GET':
-#     #     form = MyFrom()
-#     # else:
-#     #     form = MyFrom(request.POST)
-#
-#     if form.is_valid():
-#         print('The data is', request.POST.get('my_text'))
-#         print('The data is', form.cleaned_data.get('my_text'))
-#
-#     context = {
-#         'form': form,
-#     }
-#
-#     return render(request, 'index.html', context)
-
-
 def dashboard(request):
     search_form = SearchForm(request.GET)
     posts = Post.objects.all()
