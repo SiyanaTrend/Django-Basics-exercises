@@ -2,20 +2,19 @@ from django import forms
 from django.core.validators import MinLengthValidator
 from posts.models import Post
 from posts.validators import BadLanguageValidator
+from posts.mixins import ReadOnlyFieldsMixin
 
 
 class PostBaseForm(forms.ModelForm):
-    # lecturer = forms.BooleanField(
-    #     required=True,
+    """example 1"""
+    # description = forms.CharField(
+    #     validators=[
+    #         BadLanguageValidator(),
+    #         MinLengthValidator(10, message='The symbols must be at least 10!'),
+    #     ]
     # )
 
-    description = forms.CharField(
-        validators=[
-            BadLanguageValidator(),
-            MinLengthValidator(10, message='The symbols must be at least 10!'),
-        ]
-    )
-
+    """example 2"""
     # description_text = forms.CharField(
     #     max_length=10,
     #     error_messages={
@@ -37,18 +36,17 @@ class PostBaseForm(forms.ModelForm):
         }
     }
 
+    def clean(self):
+        pass
+
 class PostCreateForm(PostBaseForm):
     pass
 
 class PostEditForm(PostBaseForm):
     pass
 
-class PostDeleteForm(PostBaseForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        for field in self.fields:  # disabled all fields at once
-            self.fields[field].disabled = True
+class PostDeleteForm(ReadOnlyFieldsMixin, PostBaseForm):
+    pass
 
 
 class SearchForm(forms.Form):
@@ -60,104 +58,3 @@ class SearchForm(forms.Form):
             attrs={'placeholder': 'Search for posts...'},
         )
     )
-
-
-
-# class PostForm(forms.ModelForm):
-#     lecturer = forms.BooleanField(
-#         required=True,
-#     )
-#     class Meta:
-#         model = Post
-#         fields = '__all__'
-#         # fields = ('title', 'content')
-#         # exclude = ['content']
-#         # widgets = {
-#         #     'title': forms.NumberInput,
-#         # }
-#         # help_texts = {
-#         #     'title': 'Put a title'
-#         # }
-#         # labels = {
-#         #     'title': 'This is title'
-#         # }
-#         # error_messages = {
-#         #     'title': {
-#         #         'required': '',
-#         #     }
-#         # }
-#         widgets = {
-#             'language': forms.RadioSelect(
-#                 attrs={'class': 'radio-select'},
-#             )
-#         }
-
-# class PostForm(forms.ModelForm) instead of =>
-# class PostForm(forms.Form):
-#     title = forms.CharField(
-#         max_length=100,
-#     )
-#     content = forms.CharField(
-#         widget=forms.Textarea,
-#     )
-#     author = forms.CharField(
-#         max_length=30,
-#     )
-#     created_at = forms.DateTimeField()
-#     languages = forms.ChoiceField(
-#         choices=LanguageChoice.choices,
-#     )
-
-
-# Examples:
-# class MyFrom(forms.Form):
-#     CHOICES = [
-#         ('1', 'option 1'),
-#         ('2', 'option 2'),
-#         ('3', 'option 3'),
-#     ]
-#
-#     my_name = forms.CharField(
-#         max_length=10,
-#         required=False,
-#         # initial='Hello',
-#         label="Put the info:",
-#         help_text="Put your name",
-#         widget=forms.Textarea(
-#             attrs={'cols': 40,
-#                    'rows': 5,
-#                    'class': 'search-bar',
-#                    'placeholder': 'Enter the information here!'}
-#         )
-#     )
-
-    # password = forms.CharField(
-    #     required=False,
-    #     widget=forms.PasswordInput(),
-    # )
-
-    # my_text = forms.CharField(
-    #     widget=forms.Textarea()
-    # )
-    #
-    # multiple_select = forms.MultipleChoiceField(
-    #     choices=CHOICES,
-    #     widget=forms.CheckboxSelectMultiple,
-    # )
-    #
-    # checkbox_field = forms.BooleanField(
-    #     required=False,
-    # )
-    #
-    # radio_field = forms.ChoiceField(
-    #     choices=CHOICES,
-    #     widget=forms.RadioSelect(),
-    # )
-    #
-    # radio_box = forms.CharField(
-    #     widget=forms.RadioSelect(choices=CHOICES),
-    # )
-    #
-    # date = forms.DateField(
-    #     widget=forms.SelectDateWidget(),
-    # )
