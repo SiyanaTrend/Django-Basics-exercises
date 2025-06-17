@@ -24,6 +24,11 @@ class Post(models.Model):
         choices=LanguageChoices.choices,
         default=LanguageChoices.OTHER,
     )
+    image = models.ImageField(
+        upload_to='media_files/',
+        blank=True,
+        null=True,
+    )
 
 
 class Comment(models.Model):
