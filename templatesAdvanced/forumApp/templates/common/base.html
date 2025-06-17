@@ -2,6 +2,7 @@
 {% load markdown_extras %}
 {% load current_time %}
 {% load user_info %}
+{% load uppercase %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +26,9 @@
     
     <div class="container">
         {% block content %}
+            {% uppercase %}
+                <h1 style="color: steelblue">Wellcome!</h1>
+            {% enduppercase %}
         {% endblock %}
     </div>
 
