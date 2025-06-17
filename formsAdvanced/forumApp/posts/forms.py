@@ -37,14 +37,6 @@ class PostBaseForm(forms.ModelForm):
         }
     }
 
-    def clean_author(self):
-        author = self.cleaned_data.get('author')
-
-        if not author.isalpha():
-            raise ValidationError('Author name should contain only letters')
-
-        return author
-
     def clean(self):
         cleaned_data = super().clean()
 
@@ -56,9 +48,15 @@ class PostBaseForm(forms.ModelForm):
 
         return cleaned_data
 
+    def clean_author(self):
+        author = self.cleaned_data.get('author')
+
+        if not author.isalpha():
+            raise ValidationError('Author name should contain only letters')
+
+        return author
 
     def save(self, commit=True):
-        
         """commit=False => create the instance, but not in the database"""
         post = super().save(commit=False)
 
