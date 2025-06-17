@@ -48,8 +48,12 @@ def add_post(request):
 
 def edit_post(request, pk: int):
     post = Post.objects.get(pk=pk)
-    
-    PostEditForm = modelform_factory(Post, fields='__all__')
+
+    """editing all fields from admin, when log in or only one field 'content' when you are the user"""
+    if request.user.is_superuser:
+        PostEditForm = modelform_factory(Post, fields='__all__')
+    else:
+        PostEditForm = modelform_factory(Post, fields=('content',))
 
     form = PostEditForm(request.POST or None, instance=post)
 
