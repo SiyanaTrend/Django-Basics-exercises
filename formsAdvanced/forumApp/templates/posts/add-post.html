@@ -11,7 +11,7 @@
 {% block content %}
 {#    {{ block.super }}#}
     <h1 style="color: #405cf5;">Add Post</h1>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }} 
 {#        {% crispy form form.helper %} #}
