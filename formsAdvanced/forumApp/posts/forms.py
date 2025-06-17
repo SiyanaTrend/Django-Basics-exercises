@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
 from posts.models import Post
 from posts.validators import BadLanguageValidator
@@ -37,7 +38,15 @@ class PostBaseForm(forms.ModelForm):
     }
 
     def clean(self):
-        pass
+        cleaned_data = super().clean()
+
+        title = cleaned_data.get('title')
+        content = cleaned_data.get('content')
+
+        if title.lower() in content.lower():
+            raise ValidationError('The post title should not be included in the content!')
+
+        return cleaned_data
 
 class PostCreateForm(PostBaseForm):
     pass
