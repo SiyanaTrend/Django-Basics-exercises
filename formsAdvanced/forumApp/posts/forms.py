@@ -8,12 +8,20 @@ class PostBaseForm(forms.ModelForm):
     # lecturer = forms.BooleanField(
     #     required=True,
     # )
-    content_text = forms.CharField(
+
+    description = forms.CharField(
         validators=[
             BadLanguageValidator(),
-            MinLengthValidator(10),
+            MinLengthValidator(10, message='The symbols must be at least 10!'),
         ]
     )
+
+    # description_text = forms.CharField(
+    #     max_length=10,
+    #     error_messages={
+    #         'max_length': 'The description must be up to 10 symbols!'
+    #     }
+    # )
 
     class Meta:
         model = Post
@@ -22,6 +30,11 @@ class PostBaseForm(forms.ModelForm):
         'language': forms.RadioSelect(
             attrs={'class': 'radio-select'},
         )
+    }
+    error_messages = {
+        'author': {
+            'max_length': 'The description must be up to 50 symbols!'
+        }
     }
 
 class PostCreateForm(PostBaseForm):
