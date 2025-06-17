@@ -3,7 +3,7 @@ from django.forms import modelform_factory
 
 
 from django.shortcuts import render, redirect
-from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom
+from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom, CommentFromSet
 from posts.models import Post
 
 
@@ -68,19 +68,40 @@ def edit_post(request, pk: int):
     return render(request, 'posts/edit-post.html', context)
 
 
+""" Example 1 - use with example 1 in post-details.html"""
+# def post_details(request, pk: int):
+#     post = Post.objects.get(pk=pk)
+#     comment_form = CommentFrom(request.POST or None)
+#
+#     if request.method == "POST" and comment_form.is_valid():
+#         comment = comment_form.save(commit=False)   # get the comment without saving it in the database, because there are more fields in the Comment model
+#         comment.author = request.user.username
+#         comment.post = post
+#         comment.save()  # when we get the author and the post we save the comment in the database
+#
+#     context = {
+#         "post": post,
+#         "comment_form": comment_form,
+#     }
+#
+#     return render(request, 'posts/post-details.html', context)
+
+
 def post_details(request, pk: int):
     post = Post.objects.get(pk=pk)
-    comment_form = CommentFrom(request.POST or None)
+    comment_form_set = CommentFromSet(request.POST or None)
 
-    if request.method == "POST" and comment_form.is_valid():
-        comment = comment_form.save(commit=False)   # get the comment without saving it in the database, because there are more fields in the Comment model
-        comment.author = request.user.username
-        comment.post = post
-        comment.save()  # when we get the author and the post we save the comment in the database
+    if request.method == "POST" and comment_form_set.is_valid():
+        for form in comment_form_set:
+            comment = form.save(commit=False)   # get the comment without saving it in the database, because there are more fields in the Comment model(it is not ForeignKey)
+            comment.author = request.user.username
+            comment.post = post  # get the post, which is ForeignKey
+            comment.save()  # when we get the author and the post we save the comment in the database
+            return redirect('post-details', pk=post.pk)
 
     context = {
         "post": post,
-        "comment_form": comment_form,
+        "formset": comment_form_set,
     }
 
     return render(request, 'posts/post-details.html', context)

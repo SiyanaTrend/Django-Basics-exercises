@@ -1,6 +1,8 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
+from django.forms import modelformset_factory, formset_factory
+
 from posts.models import Post, Comment
 from posts.validators import BadLanguageValidator
 from posts.mixins import ReadOnlyFieldsMixin
@@ -106,3 +108,7 @@ class CommentFrom(forms.ModelForm):
                 }
             )
         }
+
+
+"""if extra=2 - two equals forms, extra=3 ..."""
+CommentFromSet = formset_factory(CommentFrom, extra=1)
