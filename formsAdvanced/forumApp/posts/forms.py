@@ -1,3 +1,4 @@
+from crispy_forms.helper import FormHelper
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
@@ -73,7 +74,11 @@ class PostBaseForm(forms.ModelForm):
 
 
 class PostCreateForm(PostBaseForm):
-    pass
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'id-exampleForm'
+        self.helper.form_class = 'blueForms'
 
 class PostEditForm(PostBaseForm):
     pass
