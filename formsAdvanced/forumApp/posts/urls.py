@@ -11,3 +11,4 @@ urlpatterns = [
         path('details/<int:pk>/', views.post_details, name='post-details'),
     ])),
 ]
+
