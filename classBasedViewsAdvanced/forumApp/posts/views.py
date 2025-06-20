@@ -14,6 +14,7 @@ from django.views.generic.edit import FormMixin
 
 from posts.decorators import measure_execution_time
 from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom, CommentFromSet, PostEditForm
+from posts.mixins import TimeRestrictedMixin
 from posts.models import Post
 
 '''example 1'''
@@ -181,7 +182,7 @@ class Dashboard(ListView):
 
 '''Example - static way to add post with CBV - CreateView'''
 
-class CreatePost(CreateView):
+class CreatePost(TimeRestrictedMixin, CreateView):
     model = Post
     form_class = PostCreateForm
     success_url = reverse_lazy('dashboard')
@@ -205,7 +206,7 @@ class CreatePost(CreateView):
 
 '''Example - dynamic way to edit post with CBV - UpdateView'''
 
-class EditPost(UpdateView):
+class EditPost(TimeRestrictedMixin, UpdateView):
     model = Post
     # form_class = PostEditForm
     success_url = reverse_lazy('dashboard')
