@@ -6,12 +6,13 @@ from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
-from django.utils.decorators import classonlymethod
+from django.utils.decorators import classonlymethod, method_decorator
 from django.views import View
 from django.views.generic import TemplateView, RedirectView, CreateView, UpdateView, DeleteView, FormView, DetailView, \
     ListView
 from django.views.generic.edit import FormMixin
 
+from posts.decorators import measure_execution_time
 from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom, CommentFromSet, PostEditForm
 from posts.models import Post
 
@@ -123,6 +124,7 @@ class MyRedirectView(RedirectView):
 
 '''Example - dynamic way for dashboard/search bar functionality and  with CBV - ListView'''
 
+@method_decorator(name='dispatch', decorator=measure_execution_time)
 class Dashboard(ListView):
     model = Post
     template_name = "posts/dashboard.html"
