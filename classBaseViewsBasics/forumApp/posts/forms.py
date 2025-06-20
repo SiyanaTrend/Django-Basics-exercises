@@ -10,22 +10,6 @@ from posts.mixins import ReadOnlyFieldsMixin
 
 
 class PostBaseForm(forms.ModelForm):
-    """example 1"""
-    # description = forms.CharField(
-    #     validators=[
-    #         BadLanguageValidator(),
-    #         MinLengthValidator(10, message='The symbols must be at least 10!'),
-    #     ]
-    # )
-
-    """example 2"""
-    # description_text = forms.CharField(
-    #     max_length=10,
-    #     error_messages={
-    #         'max_length': 'The description must be up to 10 symbols!'
-    #     }
-    # )
-
     class Meta:
         model = Post
         fields = '__all__'

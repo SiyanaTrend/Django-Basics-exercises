@@ -5,10 +5,10 @@ from django.forms import modelform_factory
 from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.decorators import classonlymethod
 from django.views import View
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import TemplateView, RedirectView, CreateView
 
 from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom, CommentFromSet
 from posts.models import Post
@@ -20,9 +20,9 @@ from posts.models import Post
 #
 '''def index(request):.... is the same as follow, using CBV:'''
 
-# class IndexView(View):
-#     def get(self, request, *args, **kwargs):
-#         return render(request, 'common/base.html')
+class IndexView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'common/base.html')
 
 
 ''' example 2 -> rewriting the dispatch method - check if you are log in'''
@@ -87,16 +87,16 @@ get the current time, when start the project and never changes even if the page 
 
 '''Example 8 -> static way to render template: 
 get the current time, every time when the page is refreshed'''
-class IndexView(TemplateView):
-    def get_context_data(self, **kwargs):
-        super().get_context_data(**kwargs)
-        kwargs.update({
-            'current_time': datetime.now(),
-        })
-        return kwargs
-
-    def get_template_names(self):
-        return ['index.html']
+# class IndexView(TemplateView):
+#     def get_context_data(self, **kwargs):
+#         super().get_context_data(**kwargs)
+#         kwargs.update({
+#             'current_time': datetime.now(),
+#         })
+#         return kwargs
+#
+#     def get_template_names(self):
+#         return ['index.html']
 
 
 def dashboard(request):
@@ -121,18 +121,28 @@ def dashboard(request):
     return render(request, 'posts/dashboard.html', context)
 
 
-def add_post(request):
-    form = PostCreateForm(request.POST or None, request.FILES or None)
+'''Example - static way to add post with CBV'''
+class CreatePost(CreateView):
+    model = Post
+    form_class = PostCreateForm
+    success_url = reverse_lazy('dashboard')
+    template_name = 'posts/add-post.html'
 
-    if request.method == "POST" and form.is_valid():
-        form.save()
-        return redirect('dashboard')
+'''instead of: '''
+# def add_post(request):
+#     form = PostCreateForm(request.POST or None, request.FILES or None)
+#
+#     if request.method == "POST" and form.is_valid():
+#         form.save()
+#         return redirect('dashboard')
+#
+#     context = {
+#         "form": form,
+#     }
+#
+#     return render(request, 'posts/add-post.html', context)
 
-    context = {
-        "form": form,
-    }
 
-    return render(request, 'posts/add-post.html', context)
 
 
 def edit_post(request, pk: int):
