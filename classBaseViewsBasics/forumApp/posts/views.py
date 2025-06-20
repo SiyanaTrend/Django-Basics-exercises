@@ -1,16 +1,49 @@
 from django.db.models import Q
 from django.forms import modelform_factory
-
+from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
+from django.utils.decorators import classonlymethod
 from django.views import View
 
 from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom, CommentFromSet
 from posts.models import Post
 
 
-def index(request):
-    return render(request, 'common/base.html')
+# def index(request):
+#     return render(request, 'common/base.html')
+#
+'''def index(request):.... is the same as follow, using CBV:'''
+
+class IndexView(View):
+
+    '''rewrite the dispatch method - check if you are log in'''
+    # def dispatch(self, request, *args, **kwargs):
+    #     if request.user.is_authenticated:
+    #         return super().dispatch(request, *args, **kwargs)
+    #     return HttpResponse('403 Forbidden')
+    def get(self, request, *args, **kwargs):
+        return render(request, 'common/base.html')
+
+
+'''Simple example of Django under the hood'''
+# class MyView:
+#     def dispatch(self, request, *args, **kwargs):
+#         if request.method == 'GET':
+#             return self.get(request, *args, **kwargs)
+#     @classonlymethod
+#     def as_view(cls):
+#         def view(request, *args, **kwargs):
+#             self = cls()
+#             return self.dispach(request, args, kwargs)
+#
+#         return view
+#
+#
+# class IndexView(MyView):
+#     def get(self, request, *args, **kwargs):
+#         return render(request, 'common/base.html')
+
 
 
 def dashboard(request):
