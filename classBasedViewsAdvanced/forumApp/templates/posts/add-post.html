@@ -1,0 +1,20 @@
+{% extends 'common/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block styles %}
+    {{ block.super }}
+    <style>
+        .button-9 { background-color: darkorchid; }
+    </style>
+{% endblock %}
+
+{% block content %}
+{#    {{ block.super }}#}
+    <h1 style="color: #405cf5;">Add Post</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }} 
+{#        {% crispy form form.helper %} #}
+        <button class="button-9">Submit</button>
+    </form>
+{% endblock %}
