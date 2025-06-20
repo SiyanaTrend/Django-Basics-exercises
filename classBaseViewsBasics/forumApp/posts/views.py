@@ -10,23 +10,30 @@ from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom,
 from posts.models import Post
 
 
+'''example 1'''
 # def index(request):
 #     return render(request, 'common/base.html')
 #
 '''def index(request):.... is the same as follow, using CBV:'''
 
-class IndexView(View):
-
-    '''rewrite the dispatch method - check if you are log in'''
-    # def dispatch(self, request, *args, **kwargs):
-    #     if request.user.is_authenticated:
-    #         return super().dispatch(request, *args, **kwargs)
-    #     return HttpResponse('403 Forbidden')
-    def get(self, request, *args, **kwargs):
-        return render(request, 'common/base.html')
+# class IndexView(View):
+#     def get(self, request, *args, **kwargs):
+#         return render(request, 'common/base.html')
 
 
-'''Simple example of Django under the hood'''
+''' example 2 -> rewriting the dispatch method - check if you are log in'''
+# class IndexView(View):
+#
+#     def dispatch(self, request, *args, **kwargs):
+#         if request.user.is_authenticated:
+#             return super().dispatch(request, *args, **kwargs)
+#         return HttpResponse('403 Forbidden')
+#
+#     def get(self, request, *args, **kwargs):
+#         return render(request, 'common/base.html')
+
+
+'''Example 3 -> simple example of Django under the hood'''
 # class MyView:
 #     def dispatch(self, request, *args, **kwargs):
 #         if request.method == 'GET':
