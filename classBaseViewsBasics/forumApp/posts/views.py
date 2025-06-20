@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import classonlymethod
 from django.views import View
+from django.views.generic import TemplateView
 
 from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom, CommentFromSet
 from posts.models import Post
@@ -51,6 +52,25 @@ from posts.models import Post
 #     def get(self, request, *args, **kwargs):
 #         return render(request, 'common/base.html')
 
+
+'''example 4 -> static way to render template'''
+# class IndexView(TemplateView):
+#     template_name = 'common/base.html'
+
+
+'''example 5 -> dynamic way to render template: if the first one not exists, return the next one'''
+# class IndexView(TemplateView):
+#      def get_template_names(self):
+#         return ['other.html', 'common/base.html']
+
+
+'''Example 6 -> dynamic way to render template'''
+# class IndexView(TemplateView):
+#     def get_template_names(self):
+#         if self.request.user.is_superuser:
+#             return ['common/base.html']
+#
+#         return ['posts/dashboard.html']
 
 
 def dashboard(request):
