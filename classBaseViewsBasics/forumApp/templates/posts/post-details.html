@@ -25,13 +25,6 @@
             </div>
         </div>
     
-{#    Example 1 use with example 1 from views.py#}
-{#        <form method="post">#}
-{#            {% csrf_token %}#}
-{#            {{ comment_form }}#}
-{#            <button>ADD</button>#}
-{#        </form>#}
-    
         <form method="post" class="form-inline">
             {% csrf_token %}
 {#          Use management_form, when using formset - that is fields with META for each form#}

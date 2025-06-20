@@ -1,11 +1,14 @@
+from datetime import datetime
+
 from django.db.models import Q
 from django.forms import modelform_factory
 from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils.decorators import classonlymethod
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 
 from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom, CommentFromSet
 from posts.models import Post
@@ -43,7 +46,7 @@ from posts.models import Post
 #     def as_view(cls):
 #         def view(request, *args, **kwargs):
 #             self = cls()
-#             return self.dispach(request, args, kwargs)
+#             return self.dispatch(request, args, kwargs)
 #
 #         return view
 #
@@ -71,6 +74,29 @@ from posts.models import Post
 #             return ['common/base.html']
 #
 #         return ['posts/dashboard.html']
+
+'''Example 7 -> static way to render template: 
+get the current time, when start the project and never changes even if the page is refreshed '''
+# class IndexView(TemplateView):
+#     extra_context = {
+#         'current_time': datetime.now(),
+#     }
+#     def get_template_names(self):
+#         return ['index.html']
+
+
+'''Example 8 -> static way to render template: 
+get the current time, every time when the page is refreshed'''
+class IndexView(TemplateView):
+    def get_context_data(self, **kwargs):
+        super().get_context_data(**kwargs)
+        kwargs.update({
+            'current_time': datetime.now(),
+        })
+        return kwargs
+
+    def get_template_names(self):
+        return ['index.html']
 
 
 def dashboard(request):
@@ -131,25 +157,6 @@ def edit_post(request, pk: int):
     return render(request, 'posts/edit-post.html', context)
 
 
-""" Example 1 - use with example 1 in post-details.html"""
-# def post_details(request, pk: int):
-#     post = Post.objects.get(pk=pk)
-#     comment_form = CommentFrom(request.POST or None)
-#
-#     if request.method == "POST" and comment_form.is_valid():
-#         comment = comment_form.save(commit=False)   # get the comment without saving it in the database, because there are more fields in the Comment model
-#         comment.author = request.user.username
-#         comment.post = post
-#         comment.save()  # when we get the author and the post we save the comment in the database
-#
-#     context = {
-#         "post": post,
-#         "comment_form": comment_form,
-#     }
-#
-#     return render(request, 'posts/post-details.html', context)
-
-
 def post_details(request, pk: int):
     post = Post.objects.get(pk=pk)
     comment_form_set = CommentFromSet(request.POST or None)
@@ -183,3 +190,24 @@ def delete_post(request, pk: int):
     }
 
     return render(request, 'posts/delete-post.html', context)
+
+
+'''Example 9 -> static ways to redirect to dashboard when http://localhost:8000/redirect/'''
+# class MyRedirectView(RedirectView):
+    # url = 'http://localhost:8000/dashboard/'
+    # or
+    # pattern_name = 'index'
+
+
+
+'''Example 10 -> dynamic way to redirect to dashboard when http://localhost:8000/redirect/'''
+# class MyRedirectView(RedirectView):
+#     def get_redirect_url(self, *args, **kwargs):
+#         return reverse('dashboard')
+
+
+'''Example 11 -> dynamic way to redirect to dashboard when http://localhost:8000/redirect/ 
+with 'Django' word in the search bar'''
+class MyRedirectView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse('dashboard') + '?query=Django'
