@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import classonlymethod
 from django.views import View
-from django.views.generic import TemplateView, RedirectView, CreateView, UpdateView
+from django.views.generic import TemplateView, RedirectView, CreateView, UpdateView, DeleteView, FormView
 
 from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom, CommentFromSet, PostEditForm
 from posts.models import Post
@@ -97,6 +97,26 @@ get the current time, every time when the page is refreshed'''
 #
 #     def get_template_names(self):
 #         return ['index.html']
+
+'''Example 9 -> static ways to redirect to dashboard when http://localhost:8000/redirect/'''
+# class MyRedirectView(RedirectView):
+    # url = 'http://localhost:8000/dashboard/'
+    # or
+    # pattern_name = 'index'
+
+
+
+'''Example 10 -> dynamic way to redirect to dashboard when http://localhost:8000/redirect/'''
+# class MyRedirectView(RedirectView):
+#     def get_redirect_url(self, *args, **kwargs):
+#         return reverse('dashboard')
+
+
+'''Example 11 -> dynamic way to redirect to dashboard when http://localhost:8000/redirect/ 
+with 'Django' word in the search bar'''
+class MyRedirectView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse('dashboard') + '?query=Django'
 
 
 def dashboard(request):
@@ -201,37 +221,30 @@ def post_details(request, pk: int):
     return render(request, 'posts/post-details.html', context)
 
 
-def delete_post(request, pk: int):
-    post = Post.objects.get(pk=pk)
-    form = PostDeleteForm(instance=post)
+'''Example - dynamic way to delete post with CBV - DeleteView,
+returning the form with the info in it, before deleting'''
+class DeletePost(DeleteView, FormView):
+    model = Post
+    form_class = PostDeleteForm
+    template_name = 'posts/delete-post.html'
+    success_url = reverse_lazy('dashboard')
 
-    if request.method == "POST":
-        post.delete()
-        return redirect('dashboard')
+    def get_initial(self):
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        post = self.model.objects.get(pk=pk)
+        return post.__dict__
 
-    context = {
-        "form": form,
-    }
-
-    return render(request, 'posts/delete-post.html', context)
-
-
-'''Example 9 -> static ways to redirect to dashboard when http://localhost:8000/redirect/'''
-# class MyRedirectView(RedirectView):
-    # url = 'http://localhost:8000/dashboard/'
-    # or
-    # pattern_name = 'index'
-
-
-
-'''Example 10 -> dynamic way to redirect to dashboard when http://localhost:8000/redirect/'''
-# class MyRedirectView(RedirectView):
-#     def get_redirect_url(self, *args, **kwargs):
-#         return reverse('dashboard')
-
-
-'''Example 11 -> dynamic way to redirect to dashboard when http://localhost:8000/redirect/ 
-with 'Django' word in the search bar'''
-class MyRedirectView(RedirectView):
-    def get_redirect_url(self, *args, **kwargs):
-        return reverse('dashboard') + '?query=Django'
+'''instead of: '''
+# def delete_post(request, pk: int):
+#     post = Post.objects.get(pk=pk)
+#     form = PostDeleteForm(instance=post)
+#
+#     if request.method == "POST":
+#         post.delete()
+#         return redirect('dashboard')
+#
+#     context = {
+#         "form": form,
+#     }
+#
+#     return render(request, 'posts/delete-post.html', context)

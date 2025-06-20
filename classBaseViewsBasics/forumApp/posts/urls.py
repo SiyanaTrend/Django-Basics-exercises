@@ -8,7 +8,7 @@ urlpatterns = [
     path('post/', include([
         path('add/', views.CreatePost.as_view(), name='add-post'),
         path('edit/<int:pk>/', views.EditPost.as_view(), name='edit-post'),
-        path('delete/<int:pk>/', views.delete_post, name='delete-post'),
+        path('delete/<int:pk>/', views.DeletePost.as_view(), name='delete-post'),
         path('details/<int:pk>/', views.post_details, name='post-details'),
     ])),
     path('redirect/', MyRedirectView.as_view())

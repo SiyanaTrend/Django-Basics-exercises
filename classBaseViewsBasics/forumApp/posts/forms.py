@@ -13,6 +13,7 @@ class PostBaseForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = '__all__'
+
     widgets = {
         'language': forms.RadioSelect(
             attrs={'class': 'radio-select'},
@@ -64,11 +65,15 @@ class PostCreateForm(PostBaseForm):
         self.helper.form_id = 'id-exampleForm'
         self.helper.form_class = 'blueForms'
 
+
 class PostEditForm(PostBaseForm):
     pass
 
+
 class PostDeleteForm(ReadOnlyFieldsMixin, PostBaseForm):
-    pass
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields.pop('image', None)  # remove image from form
 
 
 class SearchForm(forms.Form):

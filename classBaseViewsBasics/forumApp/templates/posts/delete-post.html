@@ -2,9 +2,13 @@
 
 {% block content %}
     <h1 style="color: #405cf5;">Delete Post</h1>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
-        <button class="button-9">Submit</button>
+        {% if form.instance.image %}
+            <p><strong>Image preview:</strong></p>
+            <img src="{{ form.instance.image.url }}" alt="Post image" style="max-width: 300px;">
+        {% endif %}
+        <button class="button-9">Confirm Delete</button>
     </form>
 {% endblock %}
