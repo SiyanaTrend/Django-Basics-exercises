@@ -8,9 +8,9 @@ from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import classonlymethod
 from django.views import View
-from django.views.generic import TemplateView, RedirectView, CreateView
+from django.views.generic import TemplateView, RedirectView, CreateView, UpdateView
 
-from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom, CommentFromSet
+from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom, CommentFromSet, PostEditForm
 from posts.models import Post
 
 
@@ -121,7 +121,7 @@ def dashboard(request):
     return render(request, 'posts/dashboard.html', context)
 
 
-'''Example - static way to add post with CBV'''
+'''Example - static way to add post with CBV - CreateView'''
 class CreatePost(CreateView):
     model = Post
     form_class = PostCreateForm
@@ -143,28 +143,42 @@ class CreatePost(CreateView):
 #     return render(request, 'posts/add-post.html', context)
 
 
+'''Example - dynamic way to edit post with CBV - UpdateView'''
+class EditPost(UpdateView):
+    model = Post
+    # form_class = PostEditForm
+    success_url = reverse_lazy('dashboard')
+    template_name = 'posts/edit-post.html'
 
+    """editing all fields, when admin is log in or only one field 'content' when you are the user"""
+    def get_form_class(self):
+        if self.request.user.is_superuser:
+            return modelform_factory(Post, fields='__all__')
+        else:
+            return modelform_factory(Post, fields=('content',))
 
-def edit_post(request, pk: int):
-    post = Post.objects.get(pk=pk)
+'''instead of: '''
+# def edit_post(request, pk: int):
+#     post = Post.objects.get(pk=pk)
+#
+#     """editing all fields from, when admin is log in or only one field 'content' when you are the user"""
 
-    """editing all fields from admin, when log in or only one field 'content' when you are the user"""
-    if request.user.is_superuser:
-        PostEditForm = modelform_factory(Post, fields='__all__')
-    else:
-        PostEditForm = modelform_factory(Post, fields=('content',))
-
-    form = PostEditForm(request.POST or None, instance=post)
-
-    if request.method == "POST" and form.is_valid():
-        form.save()
-        return redirect('dashboard')
-
-    context = {
-        "form": form,
-    }
-
-    return render(request, 'posts/edit-post.html', context)
+#     if request.user.is_superuser:
+#         PostEditForm = modelform_factory(Post, fields='__all__')
+#     else:
+#         PostEditForm = modelform_factory(Post, fields=('content',))
+#
+#     form = PostEditForm(request.POST or None, instance=post)
+#
+#     if request.method == "POST" and form.is_valid():
+#         form.save()
+#         return redirect('dashboard')
+#
+#     context = {
+#         "form": form,
+#     }
+#
+#     return render(request, 'posts/edit-post.html', context)
 
 
 def post_details(request, pk: int):
