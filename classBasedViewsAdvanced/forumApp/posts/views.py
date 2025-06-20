@@ -8,7 +8,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import classonlymethod
 from django.views import View
-from django.views.generic import TemplateView, RedirectView, CreateView, UpdateView, DeleteView, FormView, DetailView
+from django.views.generic import TemplateView, RedirectView, CreateView, UpdateView, DeleteView, FormView, DetailView, \
+    ListView
 from django.views.generic.edit import FormMixin
 
 from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom, CommentFromSet, PostEditForm
@@ -120,26 +121,60 @@ class MyRedirectView(RedirectView):
         return reverse('dashboard') + '?query=Django'
 
 
-def dashboard(request):
-    search_form = SearchForm(request.GET)
-    posts = Post.objects.all()
+'''Example - dynamic way for dashboard/search bar functionality and  with CBV - ListView'''
 
-    if request.method == "GET" and search_form.is_valid():
-        query = search_form.cleaned_data.get('query')
-        posts = posts.filter(
-            Q(title__icontains=query)
-            |
-            Q(content__icontains=query)
-            |
-            Q(author__icontains=query)
-        )
+class Dashboard(ListView):
+    model = Post
+    template_name = "posts/dashboard.html"
+    paginate_by = 3   # 3 posts on single page -> ...dashboard/?page=1 (2,3...pages). See dashboard.html <div class="pagination">
+    query_param = "query"
+    form_class = SearchForm
 
-    context = {
-        "posts": posts,
-        "search_form": search_form,
-    }
+    def get_context_data(self, *, object_list=None, **kwargs):
+        kwargs.update({
+            "search_form": self.form_class(),
+            "query": self.request.GET.get(self.query_param, ''),  # show the search word for ex. django -> ...dashboard/?query=django
+        })
+        return super().get_context_data(object_list=object_list, **kwargs)
 
-    return render(request, 'posts/dashboard.html', context)
+    def get_queryset(self):
+        queryset = self.model.objects.all()
+        search_value = self.request.GET.get(self.query_param)
+
+        if search_value:
+            queryset = queryset.filter(
+                Q(title__icontains=search_value)
+                    |
+                Q(content__icontains=search_value)
+                    |
+                Q(author__icontains=search_value)
+            )
+
+        return queryset
+
+
+
+'''instead of:'''
+# def dashboard(request):
+#     search_form = SearchForm(request.GET)
+#     posts = Post.objects.all()
+#
+#     if request.method == "GET" and search_form.is_valid():
+#         query = search_form.cleaned_data.get('query')
+#         posts = posts.filter(
+#             Q(title__icontains=query)
+#             |
+#             Q(content__icontains=query)
+#             |
+#             Q(author__icontains=query)
+#         )
+#
+#     context = {
+#         "posts": posts,
+#         "search_form": search_form,
+#     }
+#
+#     return render(request, 'posts/dashboard.html', context)
 
 
 '''Example - static way to add post with CBV - CreateView'''
@@ -231,7 +266,7 @@ class EditPost(UpdateView):
 #                 comment.save()  # when we get the author and the post we save the comment in the database
 #                 return redirect(self.get_success_url())
 
-'''Second solution for dynamic way for comment functionality in post with CBV - DetailView'''
+'''Second solution for dynamic way for comment functionality in the post with CBV - DetailView'''
 class PostDetails(DetailView, FormMixin):
     model = Post
     template_name = 'posts/post-details.html'  # Not needed if named as Django expects -> post_detail.html
