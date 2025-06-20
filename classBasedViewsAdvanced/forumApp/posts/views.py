@@ -8,17 +8,18 @@ from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import classonlymethod
 from django.views import View
-from django.views.generic import TemplateView, RedirectView, CreateView, UpdateView, DeleteView, FormView
+from django.views.generic import TemplateView, RedirectView, CreateView, UpdateView, DeleteView, FormView, DetailView
+from django.views.generic.edit import FormMixin
 
 from posts.forms import PostCreateForm, PostDeleteForm, SearchForm, CommentFrom, CommentFromSet, PostEditForm
 from posts.models import Post
-
 
 '''example 1'''
 # def index(request):
 #     return render(request, 'common/base.html')
 #
 '''def index(request):.... is the same as follow, using CBV:'''
+
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
@@ -100,10 +101,9 @@ get the current time, every time when the page is refreshed'''
 
 '''Example 9 -> static ways to redirect to dashboard when http://localhost:8000/redirect/'''
 # class MyRedirectView(RedirectView):
-    # url = 'http://localhost:8000/dashboard/'
-    # or
-    # pattern_name = 'index'
-
+# url = 'http://localhost:8000/dashboard/'
+# or
+# pattern_name = 'index'
 
 
 '''Example 10 -> dynamic way to redirect to dashboard when http://localhost:8000/redirect/'''
@@ -114,6 +114,7 @@ get the current time, every time when the page is refreshed'''
 
 '''Example 11 -> dynamic way to redirect to dashboard when http://localhost:8000/redirect/ 
 with 'Django' word in the search bar'''
+
 class MyRedirectView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         return reverse('dashboard') + '?query=Django'
@@ -127,9 +128,9 @@ def dashboard(request):
         query = search_form.cleaned_data.get('query')
         posts = posts.filter(
             Q(title__icontains=query)
-                |
+            |
             Q(content__icontains=query)
-                |
+            |
             Q(author__icontains=query)
         )
 
@@ -142,11 +143,13 @@ def dashboard(request):
 
 
 '''Example - static way to add post with CBV - CreateView'''
+
 class CreatePost(CreateView):
     model = Post
     form_class = PostCreateForm
     success_url = reverse_lazy('dashboard')
     template_name = 'posts/add-post.html'
+
 
 '''instead of: '''
 # def add_post(request):
@@ -164,6 +167,7 @@ class CreatePost(CreateView):
 
 
 '''Example - dynamic way to edit post with CBV - UpdateView'''
+
 class EditPost(UpdateView):
     model = Post
     # form_class = PostEditForm
@@ -171,11 +175,13 @@ class EditPost(UpdateView):
     template_name = 'posts/edit-post.html'
 
     """editing all fields, when admin is log in or only one field 'content' when you are the user"""
+
     def get_form_class(self):
         if self.request.user.is_superuser:
             return modelform_factory(Post, fields='__all__')
         else:
             return modelform_factory(Post, fields=('content',))
+
 
 '''instead of: '''
 # def edit_post(request, pk: int):
@@ -201,28 +207,83 @@ class EditPost(UpdateView):
 #     return render(request, 'posts/edit-post.html', context)
 
 
-def post_details(request, pk: int):
-    post = Post.objects.get(pk=pk)
-    comment_form_set = CommentFromSet(request.POST or None)
+'''Example - dynamic way for comment functionality in post with CBV - DetailView'''
 
-    if request.method == "POST" and comment_form_set.is_valid():
-        for form in comment_form_set:
-            comment = form.save(commit=False)   # get the comment without saving it in the database, because there are more fields in the Comment model(it is not ForeignKey)
-            comment.author = request.user.username
-            comment.post = post  # get the post, which is ForeignKey
-            comment.save()  # when we get the author and the post we save the comment in the database
-            return redirect('post-details', pk=post.pk)
+# class PostDetails(DetailView):
+#     model = Post
+#     template_name = 'posts/post-details.html'  # Not needed if named as Django expects -> post_detail.html
+#
+#     def get_success_url(self):
+#         return reverse_lazy('post-details', pk=self.kwargs.get(self.pk_url_kwarg))
+#
+#     def get_form_class(self):
+#         return CommentFromSet
+#
+#     def post(self, request, *args, **kwargs):
+#         self.object = self.get_object()
+#         comment_form_set = self.get_form_class()(request.POST)
+#
+#         if comment_form_set.is_valid():
+#             for form in comment_form_set:
+#                 comment = form.save(commit=False)  # get the comment without saving it in the database, because there are more fields in the Comment model(it is not ForeignKey)
+#                 comment.author = request.user.username
+#                 comment.post = self.object  # get the post, which is ForeignKey
+#                 comment.save()  # when we get the author and the post we save the comment in the database
+#                 return redirect(self.get_success_url())
 
-    context = {
-        "post": post,
-        "formset": comment_form_set,
-    }
+'''Second solution for dynamic way for comment functionality in post with CBV - DetailView'''
+class PostDetails(DetailView, FormMixin):
+    model = Post
+    template_name = 'posts/post-details.html'  # Not needed if named as Django expects -> post_detail.html
+    form_class = CommentFromSet
 
-    return render(request, 'posts/post-details.html', context)
+    def get_context_data(self, **kwargs):
+        kwargs.update({
+            "formset": self.get_form_class()(),
+        })
+        return super().get_context_data(**kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy('post-details', kwargs={'pk': self.kwargs.get(self.pk_url_kwarg)})
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        comment_form_set = self.get_form_class()(request.POST)
+
+        if comment_form_set.is_valid():
+            for form in comment_form_set:
+                comment = form.save(commit=False)  # get the comment without saving it in the database, because there are more fields in the Comment model(it is not ForeignKey)
+                comment.author = request.user.username
+                comment.post = self.object  # get the post, which is ForeignKey
+                comment.save()  # when we get the author and the post we save the comment in the database
+
+            return self.form_valid(comment_form_set)
+
+
+'''instead of: '''
+# def post_details(request, pk: int):
+#     post = Post.objects.get(pk=pk)
+#     comment_form_set = CommentFromSet(request.POST or None)
+#
+#     if request.method == "POST" and comment_form_set.is_valid():
+#         for form in comment_form_set:
+#             comment = form.save(commit=False)   # get the comment without saving it in the database, because there are more fields in the Comment model(it is not ForeignKey)
+#             comment.author = request.user.username
+#             comment.post = post  # get the post, which is ForeignKey
+#             comment.save()  # when we get the author and the post we save the comment in the database
+#             return redirect('post-details', pk=post.pk)
+#
+#     context = {
+#         "post": post,
+#         "formset": comment_form_set,
+#     }
+#
+#     return render(request, 'posts/post-details.html', context)
 
 
 '''Example - dynamic way to delete post with CBV - DeleteView,
 returning the form with the info in it, before deleting'''
+
 class DeletePost(DeleteView, FormView):
     model = Post
     form_class = PostDeleteForm
@@ -233,6 +294,7 @@ class DeletePost(DeleteView, FormView):
         pk = self.kwargs.get(self.pk_url_kwarg)
         post = self.model.objects.get(pk=pk)
         return post.__dict__
+
 
 '''instead of: '''
 # def delete_post(request, pk: int):
