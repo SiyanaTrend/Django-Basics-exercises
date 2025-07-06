@@ -1,0 +1,34 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+    <main>
+        <!-- Events page -->
+
+        {% if events %}
+            <h2>We have {{ events|length }} events in total.</h2>
+        {% else %}
+            <h2>No events so far.</h2>
+        {% endif %}
+
+        <section id="dashboard">
+
+            {% for event in events %}
+                <div class="post">
+                    <h3 class="title">{{ event.slogan|truncatechars:20 }}</h3>
+
+                    {% if event.banner_url %}
+                        <img src="{{ event.banner_url }}" alt="{{ event.slogan }} img"/>
+                    {% else %}
+                        <img src="{% static 'images/event-default-img.png' %}" alt="default event image"/>
+                    {% endif %}
+
+                    <p class="description">{{ event.start_time|date:"D d M Y H:i" }}</p>
+                    <p class="description">{{ event.location }}</p>
+
+                    <a class="details-btn" href="{% url 'event-details' event.pk %}">Click for more</a>
+                </div>
+            {% endfor %}
+        </section>
+    </main>
+{% endblock %}

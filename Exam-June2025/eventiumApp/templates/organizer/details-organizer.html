@@ -1,0 +1,51 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+    <main>
+
+        <!-- Organizer's Profile Details Section -->
+
+        <section id="details">
+            <div id="details-wrapper">
+                <!-- company name -->
+                <h2>Eventium Pro - 2025</h2>
+                <!-- default image -->
+                <img id="details-img" src="{% static 'images/organizer-default.png' %}" alt="profile img"/>
+                <!-- phone number -->
+                <p id="nutrition"><span>Phone: </span>00359888111111</p>
+                <!-- website if provided -->
+                <p id="nutrition"><span>Website: </span>https://example.com</p>
+
+                <div id="info-wrapper">
+                    <div id="details-description">
+                        <!-- if there are upcoming events, list data -->
+
+                        <p><span>Upcoming Events:</span></p>
+
+                        <!-- <ul> element containing all upcoming events, ordered by start_time ascending -->
+                        <ul>
+                            <!-- <li> element for each event's data in the format: "{start_time_year}-{start_time_month}-{start_time_day} {start_time_hour}:{start_time_minute} {slogan} @ {location}" -->
+                            <!-- event 1-->
+                            <li>2025-06-22 21:30 Unleash Your Inner Groove! @ Sofia, BG</li>
+                            <!-- event 2-->
+                            <li>2025-08-15 22:30 Feel the Beat of the City! @ New York, USA</li>
+                            <!-- event 3-->
+                            <li>2025-09-12 23:00 Glow with the Flow! @ Burgas, BG</li>
+                            <!-- event 4-->
+                            <li>2025-10-18 20:30 Where Guitars Roar and Legends Rise! @ Plovdiv, BG</li>
+
+                        </ul>
+
+                    </div>
+                    <!--Edit and Delete buttons -->
+                    <div id="action-buttons">
+                        <a href="#" id="edit-btn">Edit</a>
+                        <a href="#" id="delete-btn">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+{% endblock %}
