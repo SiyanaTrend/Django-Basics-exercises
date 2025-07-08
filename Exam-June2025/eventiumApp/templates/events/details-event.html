@@ -10,15 +10,20 @@
             <div id="details-wrapper">
                 <h2>Event Details</h2>
 
-                {% if event.banner_url %}
-                    <img src="{{ event.banner_url }}" alt="{{ event.slogan }} image"/>
-                {% else %}
-                    <img src="{% static 'images/event-default-img.png' %}" alt="default event image"/>
-                {% endif %}
+{#            first solution:#}
+            
+{#                {% if event.banner_url %}#}
+{#                    <img src="{{ event.banner_url }}" alt="{{ event.slogan }} image"/>#}
+{#                {% else %}#}
+{#                    <img src="{% static 'images/event-default-img.png' %}" alt="default event image"/>#}
+{#                {% endif %}#}
+            
+{#                second solution: #}
+                {% with event.banner_url|default:'/static/images/event-default-img.png' as image_url %}
+                    <img src="{{ image_url }}" alt="{{ event.slogan|default:'Default event' }} image" />
+                {% endwith %}
 
-                <p id="details-title">
-                    {{ event.slogan }}
-                </p>
+                <p id="details-title">{{ event.slogan }}</p>
 
                 <div id="info-wrapper">
                     <div id="details-description">
