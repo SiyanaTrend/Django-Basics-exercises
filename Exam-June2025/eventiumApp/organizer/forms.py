@@ -6,7 +6,7 @@ from organizer.models import Organizer
 class OrganizerBaseForm(forms.ModelForm):
     class Meta:
         model = Organizer
-        fields = "__all__"
+        fields = '__all__'
 
         labels = {
             'company_name': 'Company Name:',
@@ -36,7 +36,8 @@ class CreateOrganizerForm(OrganizerBaseForm):
     pass
 
 class EditOrganizerForm(OrganizerBaseForm):
-    pass
+    class Meta(OrganizerBaseForm.Meta):
+        exclude = ['secret_key']
 
 class DetailsOrganizerForm(OrganizerBaseForm):
     pass

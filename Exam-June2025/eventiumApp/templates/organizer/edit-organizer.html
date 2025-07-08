@@ -9,34 +9,10 @@
         <section id="register">
             <div class="form">
                 <h2>Edit Organizer's Profile</h2>
-                <form class="register-form" method="" action="">
-                    <div>
-                        <label for="id_company_name">Company Name:</label>
-                        <div class="helptext" id="id_company_name_helptext">*Allowed names contain letters, digits,
-                            spaces, and hyphens.
-                        </div>
-
-                        <input type="text" name="company_name" value="Eventium Pro - 2025" maxlength="110" required
-                               aria-describedby="id_company_name_helptext" id="id_company_name">
-
-                    </div>
-
-                    <div>
-                        <label for="id_phone_number">Phone Number:</label>
-                        <input type="text" name="phone_number" value="00359888111111" maxlength="15" required
-                               id="id_phone_number">
-
-                    </div>
-
-                    <div>
-                        <label for="id_website">Website:</label>
-                        <input type="url" name="website" value="https://example.com" maxlength="200"
-                               id="id_website">
-
-                    </div>
-
+                <form class="register-form" method="post" action="">
+                    {% csrf_token %}
+                    {{ form }}
                     <button type="submit">Edit</button>
-
                 </form>
             </div>
         </section>

@@ -2,11 +2,8 @@
 {% load static %}
 
 {% block content %}
-
         <main>
-
             <section id="edit">
-
                 <div class="form">
                     <!-- A default image -->
                     <img class="dell-img" src="{% static 'images/del.png' %}" alt="del" />
@@ -14,16 +11,12 @@
                     <p>*Note: If you have upcoming events, your profile will NOT be deleted!</p>
 
                     <!-- Delete Organizer's Profile Form -->
-                    <form id='delete' class="register-form" method="" action="">
-
-                        <!-- Confirm Button -->
+                    <form id='delete' class="register-form" method="post" action="">
+                        {% csrf_token %}
                         <button type="submit">Yes, delete it!</button>
-
                     </form>
-                    <!-- End Delete Form -->
+
                 </div>
-
             </section>
-
         </main>
 {% endblock %}
