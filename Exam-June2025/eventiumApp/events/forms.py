@@ -58,4 +58,4 @@ class DetailsEventForm(EventBaseForm):
     pass
 
 class DeleteEventForm(ReadOnlyMixin, EventBaseForm):
-    pass
+    read_only_fields = ['slogan', 'location', 'start_time', 'available_tickets', 'key_features', 'banner_url']
