@@ -1,6 +1,6 @@
 from django import forms
 
-from albums.mixins import ReadOnlyMixin, PlaceholderMixin
+from common.mixins import ReadOnlyMixin, PlaceholderMixin
 from albums.models import Album
 
 

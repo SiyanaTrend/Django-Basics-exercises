@@ -1,6 +1,6 @@
 from django import forms
 
-from albums.mixins import PlaceholderMixin
+from common.mixins import PlaceholderMixin
 from profiles.models import Profile
 
 
