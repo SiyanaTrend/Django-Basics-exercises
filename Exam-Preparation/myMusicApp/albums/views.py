@@ -23,6 +23,7 @@ class AlbumDetailsView(DetailView):
     pk_url_kwarg = 'id'
     template_name = 'albums/album-details.html'
 
+
 class AlbumEditView(UpdateView):
     model = Album
     form_class = AlbumEditForm
