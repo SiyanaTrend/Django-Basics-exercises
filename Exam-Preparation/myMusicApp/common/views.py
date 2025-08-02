@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView
 
@@ -11,7 +12,7 @@ class HomePage(ListView, FormView):
     form_class = ProfileCreateForm
     success_url = reverse_lazy('home')
 
-    def get_template_names(self):
+    def get_template_names(self) -> list[str]:
         profile = get_profile()  # None or QuerySet utils.py
 
         if profile:
@@ -19,7 +20,7 @@ class HomePage(ListView, FormView):
 
         return ['profiles/home-no-profile.html']
 
-    def form_valid(self, form):
+    def form_valid(self, form: ProfileCreateForm) -> HttpResponseRedirect:
         if form.is_valid:
             form.save()
             return super().form_valid(form)
