@@ -1,5 +1,6 @@
 from django import forms
 
+from albums.mixins import ReadOnlyMixin
 from albums.models import Album
 
 
@@ -36,5 +37,12 @@ class AlbumDetailsForm(AlbumBaseForm):
 class AlbumEditForm(AlbumBaseForm):
     pass
 
-class AlbumDeleteForm(AlbumBaseForm):
-    pass
+class AlbumDeleteForm(ReadOnlyMixin, AlbumBaseForm):
+    # use with option 1 - views.py
+    def is_valid(self):  # no validation of the form, when delete
+        return True
+
+
+
+    # option with fields to choose - see solution 2 - mixins.py
+    # read_only_fields = ['album_name', 'artist', 'description']
