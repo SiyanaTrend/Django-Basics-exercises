@@ -13,6 +13,8 @@ class AuthorBaseForm(forms.ModelForm):
             'last_name': 'Last Name',
             'passcode': 'Passcode',
             'pets_number': 'Pets Number',
+            'info': 'Info',
+            'image_url': 'Profile Image URL'
         }
 
         help_texts = {
@@ -30,3 +32,6 @@ class AuthorCreateForm(AuthorBaseForm):
     class Meta(AuthorBaseForm.Meta):
         exclude = ['info', 'image_url']
 
+class AuthorEditForm(AuthorBaseForm):
+    class Meta(AuthorBaseForm.Meta):
+        exclude = ['passcode']
