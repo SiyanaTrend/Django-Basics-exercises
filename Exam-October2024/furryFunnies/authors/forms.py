@@ -17,9 +17,10 @@ class AuthorBaseForm(forms.ModelForm):
             'image_url': 'Profile Image URL'
         }
 
-        help_texts = {
-            'passcode': 'Your passcode must be a combination of 6 digits',
-        }
+        # it is in the model
+        # help_texts = {
+        #     'passcode': 'Your passcode must be a combination of 6 digits',
+        # }
 
         widgets = {
             'first_name': forms.TextInput(attrs={'placeholder': 'Enter your first name...'}),
