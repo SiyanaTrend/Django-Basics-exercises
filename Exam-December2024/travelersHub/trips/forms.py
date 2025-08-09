@@ -1,0 +1,37 @@
+from django import forms
+
+from trips.models import Trip
+
+
+class TripBaseForm(forms.ModelForm):
+    class Meta:
+        model = Trip
+        exclude = ['traveler']
+
+        labels = {
+            'destination': 'Destination:',
+            'summary': 'Summary:',
+            'start_date': 'Started on:',
+            'duration': 'Duration:',
+            'image_url': 'Image URL:',
+        }
+
+        help_texts = {
+            'duration': '*Duration in days is expected.',
+        }
+
+        widgets = {
+            'destination': forms.TextInput(attrs={'placeholder': 'Enter a short destination note...'}),
+            'summary': forms.TextInput(attrs={'placeholder': 'Share your exciting moments...'}),
+            'image_url': forms.TextInput(attrs={'placeholder': 'An optional image URL...'}),
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+class TripCreateForm(TripBaseForm):
+    pass
+
+class TripEditForm(TripBaseForm):
+    pass
+
+class TripDeleteForm(TripBaseForm):
+    pass

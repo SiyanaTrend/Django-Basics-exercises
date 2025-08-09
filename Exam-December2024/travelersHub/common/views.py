@@ -13,7 +13,7 @@ def index_page_no_profile(request):
 
 def traveler_trips(request):
     profile = get_profile()
-    trips = Trip.objects.all()
+    trips = Trip.objects.all().order_by('-start_date')
 
     context = {
         'profile': profile,

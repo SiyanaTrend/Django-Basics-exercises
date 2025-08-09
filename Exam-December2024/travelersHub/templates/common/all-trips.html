@@ -1,4 +1,6 @@
 {% extends 'common/base.html' %}
+
+{% load static %}
 {% block content %}
     <main>
         <!-- All Trips page -->
@@ -10,57 +12,27 @@
         {% else %}
             <h2>No shared trips</h2>
         {% endif %}
-    
+
         <section id="dashboard">
-
+        
             <!-- Display a div with information about each trip (if any). Trips must be ordered by start_date descending -->
-       
-            <!-- first trip -->
-            <div class="post">
-                <!-- trip image if there is such, otherwise display the default one -->
+            {% for trip in trips %}
+                <div class="post">
+                    <!-- trip image if there is such, otherwise display the default one -->
+                    {% if trip.image_url %}
+                        <img src="{{ trip.image_url }}" alt="img"/>
+                    {% else %}
+                        <img src="{% static 'images/default-trip.jpg' %}" alt="img"/>
+                    {% endif %}
+                    <!-- trip destination -->
+                    <h3 class="title">{{ trip.destination }}</h3>
+                    <!-- trip start date in format "D d M Y" -->
+                    <p class="description">{{ trip.start_date|date:"D d M Y" }}</p>
+                    <!-- trip details button -->
+                    <a class="details-btn" href="#">Details</a>
+                </div>
+            {% endfor %}
 
-                <img src="https://cdn.pixabay.com/photo/2019/09/17/17/56/machu-picchu-4484205_1280.jpg"
-                     alt="Cusco, Peru img"/>
-
-                <!-- trip destination -->
-                <h3 class="title">Cusco, Peru</h3>
-                <!-- trip start date in format "D d M Y" -->
-                <p class="description">Fri 08 Nov 2024</p>
-                <!-- trip details button -->
-                <a class="details-btn" href="#">Details</a>
-            </div>
-
-            <!-- second trip -->
-            <div class="post">
-                <!-- trip image if there is such, otherwise display the default one -->
-
-                <img src="https://cdn.pixabay.com/photo/2018/11/07/18/29/iceland-3800913_1280.jpg"
-                     alt="Reykjavik, Iceland img"/>
-
-                <!-- trip destination -->
-                <h3 class="title">Reykjavik, Iceland</h3>
-                <!-- trip start date in format "D d M Y" -->
-                <p class="description">Thu 31 Oct 2024</p>
-                <!-- trip details button -->
-                <a class="details-btn" href="#">Details</a>
-            </div>
-
-            <!-- third trip -->
-            <div class="post">
-                <!-- trip image if there is such, otherwise display the default one -->
-
-                <img src="https://cdn.pixabay.com/photo/2021/10/05/16/53/kimono-6683245_1280.jpg"
-                     alt="Kyoto, Japan img"/>
-
-                <!-- trip destination -->
-                <h3 class="title">Kyoto, Japan</h3>
-                <!-- trip start date in format "D d M Y" -->
-                <p class="description">Thu 17 Oct 2024</p>
-                <!-- trip details button -->
-                <a class="details-btn" href="#">Details</a>
-            </div>
-
-            
         </section>
     </main>
 {% endblock %}
