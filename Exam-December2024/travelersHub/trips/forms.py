@@ -1,5 +1,6 @@
 from django import forms
 
+from common.mixins import ReadOnlyMixin
 from trips.models import Trip
 
 
@@ -16,9 +17,10 @@ class TripBaseForm(forms.ModelForm):
             'image_url': 'Image URL:',
         }
 
-        help_texts = {
-            'duration': '*Duration in days is expected.',
-        }
+        #  not need, because it is in the model
+        # help_texts = {
+        #     'duration': '*Duration in days is expected.',
+        # }
 
         widgets = {
             'destination': forms.TextInput(attrs={'placeholder': 'Enter a short destination note...'}),
@@ -33,5 +35,5 @@ class TripCreateForm(TripBaseForm):
 class TripEditForm(TripBaseForm):
     pass
 
-class TripDeleteForm(TripBaseForm):
-    pass
+class TripDeleteForm(ReadOnlyMixin, TripBaseForm):
+    read_only_fields = ['destination', 'image_url', 'summary', 'start_date', 'duration']

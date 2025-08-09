@@ -29,7 +29,7 @@
                     <!-- trip start date in format "D d M Y" -->
                     <p class="description">{{ trip.start_date|date:"D d M Y" }}</p>
                     <!-- trip details button -->
-                    <a class="details-btn" href="#">Details</a>
+                    <a class="details-btn" href="{%  url 'trip-details' trip.pk %}">Details</a>
                 </div>
             {% endfor %}
 
