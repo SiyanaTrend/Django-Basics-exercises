@@ -15,9 +15,10 @@ class PostBaseForm(forms.ModelForm):
             'content': 'Content',
         }
 
-        help_texts = {
-            'image_url': 'Share your funniest furry photo URL!',
-        }
+        #  not need, because it is in the model
+        # help_texts = {
+        #     'image_url': 'Share your funniest furry photo URL!',
+        # }
 
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': 'Put an attractive and unique title...'}),

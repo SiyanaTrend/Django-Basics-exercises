@@ -17,7 +17,7 @@ class AuthorBaseForm(forms.ModelForm):
             'image_url': 'Profile Image URL'
         }
 
-        # it is in the model
+        # not need, because it is in the model
         # help_texts = {
         #     'passcode': 'Your passcode must be a combination of 6 digits',
         # }
