@@ -17,6 +17,7 @@ class AuthorCreateView(CreateView):
             form.save()
             return super().form_valid(form)
 
+
 class AuthorDetailView(DetailView):
     model = Author
     template_name = 'authors/details-author.html'

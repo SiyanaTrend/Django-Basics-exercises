@@ -18,6 +18,7 @@ class LettersOnlyValidator:
         if not value.isalpha():
             raise ValidationError(self.message)
 
+
 @deconstructible
 class SixDigitsExactValidator:
     def __init__(self, message: str = None):
