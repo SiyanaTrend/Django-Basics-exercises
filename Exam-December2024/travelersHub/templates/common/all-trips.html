@@ -4,14 +4,17 @@
         <!-- All Trips page -->
 
         <!-- Display a heading if there are trips, including their count -->
-        <h2>4 Shared Trips</h2>
-        <!-- Display a heading if there are NO trips -->
-        <h2>No shared trips</h2>
-
+        {% if trips %}
+            <h2>{{ trips.count }} Shared Trips</h2>
+            <!-- Display a heading if there are NO trips -->
+        {% else %}
+            <h2>No shared trips</h2>
+        {% endif %}
+    
         <section id="dashboard">
 
             <!-- Display a div with information about each trip (if any). Trips must be ordered by start_date descending -->
-
+       
             <!-- first trip -->
             <div class="post">
                 <!-- trip image if there is such, otherwise display the default one -->
@@ -57,20 +60,7 @@
                 <a class="details-btn" href="#">Details</a>
             </div>
 
-            <!-- fourth trip -->
-            <div class="post">
-                <!-- trip image if there is such, otherwise display the default one -->
-                <!-- a default image-->
-                <img src="/images/default-trip.jpg" alt="London, UK img"/>
-
-                <!-- trip destination -->
-                <h3 class="title">London, UK</h3>
-                <!-- trip start date in format "D d M Y" -->
-                <p class="description">Sun 13 Oct 2024</p>
-                <!-- trip details button -->
-                <a class="details-btn" href="#">Details</a>
-            </div>
-
+            
         </section>
     </main>
 {% endblock %}
