@@ -24,13 +24,13 @@
             {% get_user as profile %}
             {% if profile %}
                 <div class="user">
-                    <a href="#">All Trips</a>
+                    <a href="{% url 'all-trips' %}">All Trips</a>
                     <a href="#">Share Trip</a>
                     <a href="#">Traveler's Profile</a>
                 </div>
             {% else %}
                 <div class="guest">
-                    <a href="#">New Traveler's Profile</a>
+                    <a href="{% url 'create-traveler' %}">New Traveler's Profile</a>
                 </div>
             {% endif %}
         </nav>
