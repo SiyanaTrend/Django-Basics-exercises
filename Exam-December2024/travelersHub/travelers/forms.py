@@ -15,9 +15,10 @@ class TravelerBaseForm(forms.ModelForm):
             'about_me': 'About me:'
         }
 
-        help_texts = {
-            'nickname': '*Nicknames can contain only letters and digits.',
-        }
+        # not needed, because it is in the model
+        # help_texts = {
+        #     'nickname': '*Nicknames can contain only letters and digits.',
+        # }
 
         widgets = {
             'nickname': forms.TextInput(attrs={'placeholder': 'Enter a unique nickname...'}),
@@ -25,9 +26,11 @@ class TravelerBaseForm(forms.ModelForm):
             'country': forms.TextInput(attrs={'placeholder': 'Enter a country code like <BGR>...'}),
         }
 
+
 class TravelerCreateFrom(TravelerBaseForm):
     class Meta(TravelerBaseForm.Meta):
         exclude = ['about_me']
+
 
 class TravelerEditForm(TravelerBaseForm):
     pass

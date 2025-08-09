@@ -17,7 +17,7 @@ class TripBaseForm(forms.ModelForm):
             'image_url': 'Image URL:',
         }
 
-        #  not need, because it is in the model
+        # not needed, because it is in the model
         # help_texts = {
         #     'duration': '*Duration in days is expected.',
         # }
@@ -29,11 +29,14 @@ class TripBaseForm(forms.ModelForm):
             'start_date': forms.DateInput(attrs={'type': 'date'}),
         }
 
+
 class TripCreateForm(TripBaseForm):
     pass
+
 
 class TripEditForm(TripBaseForm):
     pass
 
+
 class TripDeleteForm(ReadOnlyMixin, TripBaseForm):
-    read_only_fields = ['destination', 'image_url', 'summary', 'start_date', 'duration']
+    read_only_fields = ['destination', 'summary', 'start_date', 'duration', 'image_url']
