@@ -31,6 +31,3 @@ class TravelerCreateFrom(TravelerBaseForm):
 
 class TravelerEditForm(TravelerBaseForm):
     pass
-
-class TravelerDeleteForm(TravelerBaseForm):
-    pass
