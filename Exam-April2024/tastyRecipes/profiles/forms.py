@@ -21,3 +21,6 @@ class ProfileCreateForm(ProfileBaseForm):
     class Meta(ProfileBaseForm.Meta):
         exclude = ['bio']
 
+
+class ProfileEditForm(ProfileBaseForm):
+    pass
