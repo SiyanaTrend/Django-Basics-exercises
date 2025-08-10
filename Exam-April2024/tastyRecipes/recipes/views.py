@@ -4,7 +4,7 @@ from django.views.generic import CreateView, UpdateView, DetailView, DeleteView,
 
 from common.mixins import SingleObjectMixin
 from common.utils import get_profile
-from recipes.forms import RecipeCreateForm, RecipeEditForm
+from recipes.forms import RecipeCreateForm, RecipeEditForm, RecipeDeleteForm
 from recipes.models import Recipe
 
 
@@ -36,3 +36,16 @@ class RecipeEditView(UpdateView):
     template_name = 'recipes/edit-recipe.html'
     pk_url_kwarg = 'recipe_id'
     success_url = reverse_lazy('catalogue')
+
+
+class RecipeDeleteView(DeleteView):
+    model = Recipe
+    form_class = RecipeDeleteForm
+    template_name = 'recipes/delete-recipe.html'
+    pk_url_kwarg = 'recipe_id'
+    success_url = reverse_lazy('catalogue')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.object
+        return kwargs

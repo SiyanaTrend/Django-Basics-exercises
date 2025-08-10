@@ -8,5 +8,6 @@ urlpatterns = [
     path('<int:recipe_id>/', include([
         path('details/', views.RecipeDetailsView.as_view(), name='recipe-details'),
         path('edit/', views.RecipeEditView.as_view(), name='edit-recipe'),
+        path('delete/', views.RecipeDeleteView.as_view(), name='delete-recipe'),
     ])),
 ]
