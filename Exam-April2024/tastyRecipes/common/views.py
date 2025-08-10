@@ -1,3 +1,8 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
-# Create your views here.
+from common.mixins import SingleObjectMixin
+
+
+class HomePageView(SingleObjectMixin, TemplateView):
+    template_name = 'common/home-page.html'
