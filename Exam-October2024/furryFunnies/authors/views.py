@@ -13,9 +13,7 @@ class AuthorCreateView(CreateView):
     success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form: AuthorCreateForm):
-        if form.is_valid:
-            form.save()
-            return super().form_valid(form)
+        return super().form_valid(form)
 
 
 class AuthorDetailView(DetailView):
