@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
 
+from common.mixins import SingleObjectMixin
 from profiles.forms import ProfileCreateForm
 from profiles.models import Profile
 
@@ -16,4 +17,9 @@ class ProfileCreateView(CreateView):
         if form.is_valid:
             form.save()
             return super().form_valid(form)
+
+
+class ProfileDetailsView(SingleObjectMixin, DetailView):
+    model = Profile
+    template_name = 'profiles/details-profile.html'
 

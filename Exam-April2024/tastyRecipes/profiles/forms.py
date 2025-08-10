@@ -13,8 +13,11 @@ class ProfileBaseForm(forms.ModelForm):
             'first_name': 'First Name:',
             'last_name': 'Last Name:',
             'chef': 'Chef:',
+            'bio': 'Bio:',
         }
+
 
 class ProfileCreateForm(ProfileBaseForm):
     class Meta(ProfileBaseForm.Meta):
         exclude = ['bio']
+
