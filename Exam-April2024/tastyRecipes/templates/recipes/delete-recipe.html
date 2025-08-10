@@ -1,33 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/style/style.css" />
-    <title>TastyRecipesApp</title>
-  </head>
+{% extends 'common/base.html' %}
 
-  <body>
-    <div id="box">
-      <header>
-        <!-- Navigation Bar -->
-        <h1><a class="index-navigation" href="#">Tasty Recipes</a></h1>
-        <nav>
-          <!-- if the user has not created a profile -->
-          <a href="#">Create Profile</a>
+{% block content %}
 
-          <!-- if the user has created a profile -->
-          <a href="#">Catalogue</a>
-          <a href="#">Create Recipe</a>
-          <a href="#">Profile</a>
-        </nav>
-      </header>
-
-      <!-- edit recipe form -->
-      <section id="create-page" class="auth">
-        <form id="create" method="">
+      <!-- delete recipe form -->
+      <section id="delete-page" class="auth">
+        <form id="delete" method="">
           <div class="container">
-            <h1>Edit Recipe</h1>
+            <h1>Delete Recipe</h1>
             <div>
               <label for="id_title">Title:</label>
 
@@ -36,6 +15,7 @@
                 name="title"
                 value="Caprese Salad"
                 maxlength="100"
+                readonly="readonly"
                 required
                 id="id_title"
               />
@@ -44,7 +24,12 @@
             <div>
               <label for="id_cuisine_type">Cuisine Type:</label>
 
-              <select name="cuisine_type" required id="id_cuisine_type">
+              <select
+                name="cuisine_type"
+                readonly="readonly"
+                required
+                id="id_cuisine_type"
+              >
                 <option value="">---------</option>
 
                 <option value="French">French</option>
@@ -71,6 +56,7 @@
                 cols="40"
                 rows="10"
                 placeholder="ingredient1, ingredient2, ..."
+                readonly="readonly"
                 required
                 aria-describedby="id_ingredients_helptext"
                 id="id_ingredients"
@@ -87,6 +73,7 @@ Fresh tomatoes, Fresh mozzarella cheese, Fresh basil leaves, Balsamic glaze</tex
                 cols="40"
                 rows="10"
                 placeholder="Enter detailed instructions here..."
+                readonly="readonly"
                 required
                 id="id_instructions"
               >
@@ -109,6 +96,7 @@ Season with salt and pepper to taste.</textarea
                 name="cooking_time"
                 value="10"
                 min="0"
+                readonly="readonly"
                 required
                 aria-describedby="id_cooking_time_helptext"
                 id="id_cooking_time"
@@ -124,17 +112,14 @@ Season with salt and pepper to taste.</textarea
                 value="https://cdn.pixabay.com/photo/2016/12/27/21/22/salad-1934944_1280.jpg"
                 placeholder="Optional image URL here..."
                 maxlength="200"
+                readonly="readonly"
                 id="id_image_url"
               />
             </div>
-            <!-- edit button -->
-            <input class="btn submit" type="submit" value="Edit Recipe" />
+            <!-- delete button -->
+            <input class="btn submit" type="submit" value="Delete Recipe" />
           </div>
         </form>
       </section>
 
-      <!-- footer -->
-      <footer>&copy;SoftUni Team 2024. All rights reserved.</footer>
-    </div>
-  </body>
-</html>
+{% endblock %}
