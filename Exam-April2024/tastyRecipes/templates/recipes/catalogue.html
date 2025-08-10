@@ -29,7 +29,7 @@
                     <h1>{{ recipe.instructions|truncatechars:35 }}</h1>
                     <div class="details-buttons">
                         <!-- recipe details button -->
-                        <a href="" class="details-btn">Details</a>
+                        <a href="{% url 'recipe-details' recipe.id %}" class="details-btn">Details</a>
                     </div>
                 </div>
             {% endfor %}
@@ -37,4 +37,3 @@
     {% endif %}
 
 {% endblock %}
- 

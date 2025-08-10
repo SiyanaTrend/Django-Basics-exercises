@@ -23,3 +23,9 @@ class RecipeCreateView(CreateView):
     def form_valid(self, form: RecipeCreateForm):
         form.instance.author = get_profile()
         return super().form_valid(form)
+
+class RecipeDetailsView(DetailView):
+    model = Recipe
+    template_name = 'recipes/details-recipe.html'
+    pk_url_kwarg = 'recipe_id'
+

@@ -2,8 +2,8 @@ from django.db import models
 
 
 class CuisineChoices(models.TextChoices):
-    FRENCH = "FR", "French"
-    CHINESE = "CN", "Chinese"
-    ITALIAN = "IT", "Italian"
-    BALKAN = "BK", "Balkan"
+    FRENCH = "French", "French"
+    CHINESE = "Chinese", "Chinese"
+    ITALIAN = "Italian", "Italian"
+    BALKAN = "Balkan", "Balkan"
     OTHER = "Other", "Other"

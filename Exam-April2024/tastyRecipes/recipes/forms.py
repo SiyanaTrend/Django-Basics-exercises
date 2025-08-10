@@ -31,3 +31,4 @@ class RecipeBaseForm(forms.ModelForm):
 
 class RecipeCreateForm(RecipeBaseForm):
     pass
+
