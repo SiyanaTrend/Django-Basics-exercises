@@ -14,9 +14,7 @@ class TravelerCreateView(CreateView):
     success_url = reverse_lazy('all-trips')
 
     def form_valid(self, form: TravelerCreateFrom):
-        if form.is_valid:
-            form.save()
-            return super().form_valid(form)
+        return super().form_valid(form)
 
 
 class TravelerDetailView(SingleObjectMixin, DetailView):
