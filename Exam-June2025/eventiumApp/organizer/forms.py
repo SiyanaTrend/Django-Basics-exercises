@@ -15,32 +15,28 @@ class OrganizerBaseForm(forms.ModelForm):
             'website': 'Website:',
         }
 
-        help_texts = {
-            'company_name': "*Allowed names contain letters, digits, spaces, and hyphens.",
-            'secret_key': "*Pick a combination of 4 unique digits.",
-        }
 
         widgets = {
-            'secret_key': forms.PasswordInput(
-                attrs={'placeholder': 'Enter a secret key like <1234>...'}
-            ),
             'company_name': forms.TextInput(
                 attrs={'placeholder': 'Enter a company name...'}
             ),
             'phone_number': forms.TextInput(
                 attrs={'placeholder': 'Enter a valid phone number (digits only)...'}
             ),
+            'secret_key': forms.PasswordInput(
+                attrs={'placeholder': 'Enter a secret key like <1234>...'}
+            ),
         }
 
+
 class CreateOrganizerForm(OrganizerBaseForm):
-    pass
+    class Meta(OrganizerBaseForm.Meta):
+        exclude = ['website']
+
 
 class EditOrganizerForm(OrganizerBaseForm):
     class Meta(OrganizerBaseForm.Meta):
         exclude = ['secret_key']
-
-class DetailsOrganizerForm(OrganizerBaseForm):
-    pass
 
 
 class DeleteOrganizerForm(OrganizerBaseForm):

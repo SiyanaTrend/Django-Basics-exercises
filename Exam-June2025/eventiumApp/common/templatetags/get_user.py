@@ -1,8 +1,9 @@
 from django import template
-from eventiumApp.utils import get_user_obj
+
+from common.utils import get_profile
 
 register = template.Library()
 
 @register.simple_tag
 def get_user():
-    return get_user_obj()
+    return get_profile()

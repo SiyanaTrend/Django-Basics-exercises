@@ -3,6 +3,7 @@ from django.db import models
 
 from organizer.validators import CompanyNameValidator, PhoneNumberValidator, SecretKeyValidator
 
+
 class Organizer(models.Model):
     company_name = models.CharField(
         max_length=110,
@@ -17,7 +18,9 @@ class Organizer(models.Model):
     phone_number = models.CharField(
         max_length=15,
         unique=True,
-        validators=[PhoneNumberValidator()],
+        validators=[
+            PhoneNumberValidator()
+        ],
         error_messages={
             'unique': "That phone number is already in use!"
         }
@@ -25,7 +28,9 @@ class Organizer(models.Model):
 
     secret_key = models.CharField(
         max_length=4,
-        validators=[SecretKeyValidator()],
+        validators=[
+            SecretKeyValidator()
+        ],
         help_text="*Pick a combination of 4 unique digits."
     )
 

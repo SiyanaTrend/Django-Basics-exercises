@@ -1,5 +1,5 @@
 from organizer.models import Organizer
 
 
-def get_user_obj():
+def get_profile():
     return Organizer.objects.first()
