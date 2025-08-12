@@ -20,7 +20,7 @@ class Player(models.Model):
     email = models.CharField(
         max_length=60,
         validators=[
-            EmailValidator()
+            EmailValidator(),
         ],
         unique=True,
         error_messages={
@@ -35,3 +35,6 @@ class Player(models.Model):
     is_pro = models.BooleanField(
         default=False,
     )
+
+    def __str__(self):
+        return f'{self.nickname} - {self.achievements}'
