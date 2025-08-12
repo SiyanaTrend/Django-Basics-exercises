@@ -1,65 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'common/base.html' %}
 
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=\, initial-scale=1.0" />
-    <link rel="stylesheet" href="/static/styles/styles.css" />
-    <title>GameVerse</title>
-</head>
+{% block content %}
+    
+    <main>
+        <section id="edit">
 
-<body>
-    <div id="wrapper">
-        <header>
-            <!-- Navigation -->
-            <nav>
-                <!-- A link to Index/Home page -->
-                <div>
-                    <a id="logo" href="#">GameVerse</a>
-                </div>
+            <div class="form">
+                <h1>Do you like to delete your Player's Profile?</h1>
+                <p><span class="warning">&#9888;Warning: </span>Deleting your profile will permanently remove all
+                    your games.</p>
 
-                <!-- If there is a player's profile -->
-                <div class="user">
-                    <a href="#">Games</a>
-                    <a href="#">New Game</a>
-                    <a href="#">Player's Profile</a>
-                </div>
+                <!-- Delete Player's Profile Form -->
+                <form id='delete' class="register-form" method="post" action="">
+                    {% csrf_token %}
+                    <!-- Confirm Button -->
+                    <button type="submit">Confirm</button>
 
-                <!-- If the player's profile has NOT been created -->
-                <div class="guest">
-                    <a href="#">New Player</a>
-                </div>
-            </nav>
-        </header>
+                </form>
+                <!-- End Delete Form -->
+            </div>
+        </section>
+    </main>
 
-        <main>
-            <section id="edit">
-
-                <div class="form">
-                    <h1>Do you like to delete your Player's Profile?</h1>
-                    <p><span class="warning">&#9888;Warning: </span>Deleting your profile will permanently remove all
-                        your games.</p>
-
-                    <!-- Delete Player's Profile Form -->
-                    <form id='delete' class="register-form" method="" action="">
-
-                        <!-- Confirm Button -->
-                        <button type="submit">Confirm</button>
-
-                    </form>
-                    <!-- End Delete Form -->                     
-                </div>
-
-            </section>
-        </main>
-
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy;GameVerse by SoftUni Team. All rights reserved.</p>
-    </footer>
-</body>
-
-</html>
+{% endblock %}

@@ -1,4 +1,4 @@
-from django.core.validators import MinLengthValidator
+from django.core.validators import MinLengthValidator, EmailValidator
 from django.db import models
 
 from players.validators import LettersDigitsOnlyValidator
@@ -19,6 +19,9 @@ class Player(models.Model):
     )
     email = models.CharField(
         max_length=60,
+        validators=[
+            EmailValidator()
+        ],
         unique=True,
         error_messages={
             'unique': 'That email is already registered!'

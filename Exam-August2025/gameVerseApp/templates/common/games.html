@@ -1,135 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'common/base.html' %}
 
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=\, initial-scale=1.0" />
-    <link rel="stylesheet" href="/static/styles/styles.css" />
-    <title>GameVerse</title>
-</head>
+{% load static %}
+{% block content %}
 
-<body>
-    <div id="wrapper">
-        <header>
-            <!-- Navigation -->
-            <nav>
-                <!-- A link to Index/Home page -->
-                <div>
-                    <a id="logo" href="#">GameVerse</a>
-                </div>
+    <main>
+        <!-- Games page -->
 
-                <!-- If there is a player's profile -->
-                <div class="user">
-                    <a href="#">Games</a>
-                    <a href="#">New Game</a>
-                    <a href="#">Player's Profile</a>
-                </div>
+        <!-- Display a heading if there are games -->
+        <h2> Found 4 games:</h2>
 
-                <!-- If the player's profile has NOT been created -->
-                <div class="guest">
-                    <a href="#">New Player</a>
-                </div>
-            </nav>
-        </header>
+        <!-- Display a heading if there are NO games -->
+        <h2>No games found. Post your first one. </h2>
 
-        <main>
-            <!-- Games page -->
+        <section id="dashboard">
 
-            <!-- Display a heading if there are games -->
-            <h2> Found 4 games:</h2>
+            <!-- Display a div with information about each game (if any), ordered as described-->
 
-            <!-- Display a heading if there are NO games -->
-            <h2>No games found. Post your first one. </h2>
+            <!-- first game -->
+            <div class="post">
 
-            <section id="dashboard">
+                <!-- game title (first 2 words at max) -->
+                <h3 class="title">Diablo IV</h3>
 
-                <!-- Display a div with information about each game (if any), ordered as described-->
+                <!-- game screenshot image if there is such, otherwise display the default one -->
 
-                <!-- first game -->
-                <div class="post">
-
-                    <!-- game title (first 2 words at max) -->
-                    <h3 class="title">Diablo IV</h3>
-
-                    <!-- game screenshot image if there is such, otherwise display the default one -->
-
-                    <img src="https://cdn.pixabay.com/photo/2024/12/15/18/10/ai-generated-9269253_1280.jpg"
-                        alt="Diablo IV img" />
+                <img src="https://cdn.pixabay.com/photo/2024/12/15/18/10/ai-generated-9269253_1280.jpg"
+                     alt="Diablo IV img"/>
 
 
-                    <!-- game challenge level -->
-                    <p class="description"><strong>Challenge level: </strong>10</p>
+                <!-- game challenge level -->
+                <p class="description"><strong>Challenge level: </strong>10</p>
 
-                    <!-- game details button -->
-                    <a class="details-btn" href="#">Details</a>
-                </div>
+                <!-- game details button -->
+                <a class="details-btn" href="#">Details</a>
+            </div>
 
-                <!-- second game -->
-                <div class="post">
+            <!-- second game -->
+            <div class="post">
 
-                    <!-- game title (first 2 words at max) -->
-                    <h3 class="title">Grand Theft …</h3>
+                <!-- game title (first 2 words at max) -->
+                <h3 class="title">Grand Theft …</h3>
 
-                    <!-- game screenshot image if there is such, otherwise display the default one -->
+                <!-- game screenshot image if there is such, otherwise display the default one -->
 
-                    <img src="/static/images/game-default.png" alt="Grand Theft Auto V img" />
-
-
-                    <!-- game challenge level -->
-                    <p class="description"><strong>Challenge level: </strong>10</p>
-
-                    <!-- game details button -->
-                    <a class="details-btn" href="#">Details</a>
-                </div>
-
-                <!-- third game -->
-                <div class="post">
-
-                    <!-- game title (first 2 words at max) -->
-                    <h3 class="title">Fast and …</h3>
-
-                    <!-- game screenshot image if there is such, otherwise display the default one -->
-
-                    <img src="https://cdn.pixabay.com/photo/2024/01/18/17/53/ai-generated-8517348_1280.png"
-                        alt="Fast and Furious img" />
+                <img src="/static/images/game-default.png" alt="Grand Theft Auto V img"/>
 
 
-                    <!-- game challenge level -->
-                    <p class="description"><strong>Challenge level: </strong>5</p>
+                <!-- game challenge level -->
+                <p class="description"><strong>Challenge level: </strong>10</p>
 
-                    <!-- game details button -->
-                    <a class="details-btn" href="#">Details</a>
-                </div>
+                <!-- game details button -->
+                <a class="details-btn" href="#">Details</a>
+            </div>
 
-                <!-- fourth game -->
-                <div class="post">
+            <!-- third game -->
+            <div class="post">
 
-                    <!-- game title (first 2 words at max) -->
-                    <h3 class="title">Super Mario</h3>
+                <!-- game title (first 2 words at max) -->
+                <h3 class="title">Fast and …</h3>
 
-                    <!-- game screenshot image if there is such, otherwise display the default one -->
+                <!-- game screenshot image if there is such, otherwise display the default one -->
 
-                    <img src="https://cdn.pixabay.com/photo/2018/08/26/08/16/mario-3631666_1280.png"
-                        alt="Super Mario img" />
+                <img src="https://cdn.pixabay.com/photo/2024/01/18/17/53/ai-generated-8517348_1280.png"
+                     alt="Fast and Furious img"/>
 
 
-                    <!-- game challenge level -->
-                    <p class="description"><strong>Challenge level: </strong>3</p>
+                <!-- game challenge level -->
+                <p class="description"><strong>Challenge level: </strong>5</p>
 
-                    <!-- game details button -->
-                    <a class="details-btn" href="#">Details</a>
-                </div>
+                <!-- game details button -->
+                <a class="details-btn" href="#">Details</a>
+            </div>
 
-            </section>
-        </main>
+            <!-- fourth game -->
+            <div class="post">
 
-    </div>
+                <!-- game title (first 2 words at max) -->
+                <h3 class="title">Super Mario</h3>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy;GameVerse by SoftUni Team. All rights reserved.</p>
-    </footer>
-</body>
+                <!-- game screenshot image if there is such, otherwise display the default one -->
 
-</html>
+                <img src="https://cdn.pixabay.com/photo/2018/08/26/08/16/mario-3631666_1280.png"
+                     alt="Super Mario img"/>
+
+
+                <!-- game challenge level -->
+                <p class="description"><strong>Challenge level: </strong>3</p>
+
+                <!-- game details button -->
+                <a class="details-btn" href="#">Details</a>
+            </div>
+
+        </section>
+    </main>
+
+{% endblock %}

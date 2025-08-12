@@ -1,89 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'common/base.html' %}
 
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=\, initial-scale=1.0" />
-    <link rel="stylesheet" href="/static/styles/styles.css" />
-    <title>GameVerse</title>
-</head>
+{% load static %}
+{% block content %}
 
-<body>
-    <div id="wrapper">
-        <header>
-            <!-- Navigation -->
-            <nav>
-                <!-- A link to Index/Home page -->
-                <div>
-                    <a id="logo" href="#">GameVerse</a>
-                </div>
+    <main>
+        <!-- Game Details -->
+        <section id="details">
+            <div id="details-wrapper">
+                <h2>Game Details</h2>
 
-                <!-- If there is a player's profile -->
-                <div class="user">
-                    <a href="#">Games</a>
-                    <a href="#">New Game</a>
-                    <a href="#">Player's Profile</a>
-                </div>
+                <!-- game screenshot image if there is such, otherwise display the default one '/images/game-default.png' -->
+                <img src="https://cdn.pixabay.com/photo/2018/08/26/08/16/mario-3631666_1280.png"
+                     alt="Super Mario img"/>
 
-                <!-- If the player's profile has NOT been created -->
-                <div class="guest">
-                    <a href="#">New Player</a>
-                </div>
-            </nav>
-        </header>
+                <!-- game title -->
+                <p id="details-title">
+                    Super Mario
+                </p>
 
-        <main>
-            <!-- Game Details -->
-            <section id="details">
-                <div id="details-wrapper">
-                    <h2>Game Details</h2>
+                <div id="info-wrapper">
+                    <div id="details-description">
 
-                    <!-- game screenshot image if there is such, otherwise display the default one '/images/game-default.png' -->
-                    <img src="https://cdn.pixabay.com/photo/2018/08/26/08/16/mario-3631666_1280.png"
-                        alt="Super Mario img" />
+                        <!-- game release date in format "d M Y" -->
+                        <p class="description">
+                            <span>Release date: </span>05 May 2008
+                        </p>
 
-                    <!-- game title -->
-                    <p id="details-title">
-                        Super Mario
-                    </p>
+                        <!-- game challenge level -->
+                        <p class="description">
+                            <span>Challenge level: </span>3
+                        </p>
 
-                    <div id="info-wrapper">
-                        <div id="details-description">
-
-                            <!-- game release date in format "d M Y" -->
-                            <p class="description">
-                                <span>Release date: </span>05 May 2008
-                            </p>
-
-                            <!-- game challenge level -->
-                            <p class="description">
-                                <span>Challenge level: </span>3
-                            </p>
-
-                            <!-- game platform -->
-                            <p>
-                                <span>Platform: </span>PC Games
-                            </p>
-                        </div>
-
-                        <!--Edit and Delete buttons -->
-                        <div id="action-buttons">
-                            <a href="#" id="edit-btn">Edit</a>
-                            <a href="#" id="delete-btn">Delete</a>
-                        </div>
+                        <!-- game platform -->
+                        <p>
+                            <span>Platform: </span>PC Games
+                        </p>
                     </div>
-                    
+
+                    <!--Edit and Delete buttons -->
+                    <div id="action-buttons">
+                        <a href="#" id="edit-btn">Edit</a>
+                        <a href="#" id="delete-btn">Delete</a>
+                    </div>
                 </div>
-            </section>
-        </main>
 
-    </div>
+            </div>
+        </section>
+    </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy;GameVerse by SoftUni Team. All rights reserved.</p>
-    </footer>
-</body>
-
-</html>
+{% endblock %}
