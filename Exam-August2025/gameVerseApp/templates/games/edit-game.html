@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=\, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/styles/styles.css" />
+    <title>GameVerse</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <header>
+            <!-- Navigation -->
+            <nav>
+                <!-- A link to Index/Home page -->
+                <div>
+                    <a id="logo" href="#">GameVerse</a>
+                </div>
+
+                <!-- If there is a player's profile -->
+                <div class="user">
+                    <a href="#">Games</a>
+                    <a href="#">New Game</a>
+                    <a href="#">Player's Profile</a>
+                </div>
+
+                <!-- If the player's profile has NOT been created -->
+                <div class="guest">
+                    <a href="#">New Player</a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Edit Game -->
+            <section id="edit">
+                <div class="form">
+                    <h2>Edit Game</h2>
+
+                    <!-- Edit Game Form -->
+                    <form class="edit-form" method="" action="">
+                        <div>
+                            <label for="id_title">Title:</label>
+                            <input type="text" name="title" value="Super Mario" maxlength="130" required id="id_title">
+
+                        </div>
+
+                        <div>
+                            <label for="id_platform">Platform:</label>
+                            <select name="platform" id="id_platform">
+                                <option value="PC Games" selected>PC Games</option>
+
+                                <option value="Console Games">Console Games</option>
+
+                                <option value="Other Games">Other Games</option>
+                            </select>
+
+                        </div>
+
+                        <div>
+                            <label for="id_release_date">Release Date:</label>
+                            <input type="date" name="release_date" value="2008-05-05" required id="id_release_date">
+
+                        </div>
+
+                        <div>
+                            <label for="id_level">Challenge Level:</label>
+                            <input type="number" name="level" value="3" min="0" required id="id_level">
+
+                        </div>
+
+                        <div>
+                            <label for="id_screenshot_url">Screenshot URL:</label>
+                            <input type="url" name="screenshot_url"
+                                value="https://cdn.pixabay.com/photo/2018/08/26/08/16/mario-3631666_1280.png"
+                                maxlength="200" id="id_screenshot_url">
+
+                        </div>
+                        <button type="submit">Edit</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy;GameVerse by SoftUni Team. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

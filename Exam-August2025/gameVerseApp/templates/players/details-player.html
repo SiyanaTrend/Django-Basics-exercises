@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=\, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/styles/styles.css" />
+    <title>GameVerse</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <header>
+            <!-- Navigation -->
+            <nav>
+                <!-- A link to Index/Home page -->
+                <div>
+                    <a id="logo" href="#">GameVerse</a>
+                </div>
+
+                <!-- If there is a player's profile -->
+                <div class="user">
+                    <a href="#">Games</a>
+                    <a href="#">New Game</a>
+                    <a href="#">Player's Profile</a>
+                </div>
+
+                <!-- If the player's profile has NOT been created -->
+                <div class="guest">
+                    <a href="#">New Player</a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Player's Profile Details Section -->
+
+            <section id="details">
+                <div id="details-wrapper">
+
+                    <!-- player nickname -->
+                    <h2>testplayer1</h2>
+
+                    <!-- player image if Pro -->
+                    <img id="details-img" src="/static/images/player-pro.png" alt="profile img" />
+                    
+                    <!-- player image if Regular -->
+                    <img id="details-img" src="/static/images/player-regular.png" alt="profile img" />
+
+                    <!-- email -->
+                    <p id="extra-data"><span>Email: </span>test@mail.com</p>
+
+                    <!-- achievements if provided -->
+                    <p id="extra-data"><span>Achievements: </span>Super Mario: Princess rescued;</p>
+
+                    <div id="info-wrapper">
+                        <div id="details-description">
+
+                            <!-- if there are games, list the top 3 hardest ones (or all if games <= 3), ordered as described-->
+                            <p><span>Player's Top Games:</span></p>
+                            <ul>
+                                <!-- first game info -->
+                                <li>Challenge level 10: Diablo IV (PC Games), released on 2024-01-16</li>
+                                <!-- second game info -->
+                                <li>Challenge level 10: Grand Theft Auto V (Console Games), released on 2013-02-09</li>
+                                <!-- third game info -->
+                                <li>Challenge level 5: Fast and Furious (Console Games), released on 2020-07-10</li>
+                            </ul>
+
+                        </div>
+                        <!--Edit and Delete buttons -->
+                        <div id="action-buttons">
+                            <a href="#" id="edit-btn">Edit</a>
+                            <a href="#" id="delete-btn">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy;GameVerse by SoftUni Team. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap'); /* Futuristic, robotic */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    /* fonts */
+    --font-primary: 'Manrope', sans-serif;
+    --font-accent: 'Quicksand', sans-serif;
+    --font-script: 'Quicksand', cursive;
+    --font-heading: 'Orbitron', sans-serif;
+    --font-roboto: "Roboto Condensed", sans-serif;
+
+    /* Gaming Theme Variables */
+    --white-color: #e0ffe0;
+    --body-bg: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+    --primary-text: #00ff88;
+    --text-muted: #7cffc1;
+
+    /* Headings and highlights */
+    --heading-color: #00ff88;
+    --h2-color: #39ffb6;
+
+    /* Cards & Panels */
+    --card-background: #111111;
+    --card-box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+
+    /* Buttons */
+    --button-background: #00ff88;
+    --button-hover: #00cc6a;
+    --button-primary: #39ffb6;
+    --button-primary-hover: #2ae59d;
+
+    /* Input & Forms */
+    --light-input-background: #1f1f1f;
+    --light-border: 1px solid #00ff88;
+    --readonly-background: #2a2a2a;
+    --input-shadow: 0 0 10px rgba(0, 255, 136, 0.15);
+    --placeholder-text-color: #66ffcc;
+
+    /* Details and Containers */
+    --details-background: #121212;
+    --form-background: rgba(26, 26, 26, 0.83);
+    --form-border: 2px solid #00ff88;
+    --form-radius: 12px;
+    --border-radius-big: 100px;
+    --border-radius-round: 20px;
+    --large-border-radius: 30px;
+    --form-clip-path: none;
+
+    /* Accents */
+    --orange-background: #ff4081;
+    --hover-background: #222222;
+    --muted-message: #7cffc1;
+    --error-text: #ff4d4d;
+    --warning-text: #f0ac0c;
+
+    /* Navigation & Footer */
+    --nav-link: #00ff88;
+    --nav-hover: #66ffcc;
+    --footer-bg: #0f0f0f;
+    --footer-text: #7cffc1;
+
+       /* Forms edition */
+  --form-background: rgba(57, 57, 57, 0.4);
+  --light-input-background: rgba(255, 255, 255, 0.05);
+  --light-border: 1px solid rgba(255, 255, 255, 0.2);
+  --input-shadow: 0 4px 10px rgba(0, 255, 255, 0.1);
+  --text-muted: #e0f7fa;
+  --orange-background: #08fdd8;
+  --hover-background: #ff0099;
+  --h2-color: #ffffff;
+  --button-primary-hover: #0ff;
+  --muted-message: #aaa;
+  --error-text: #ff1744;
+  --readonly-background: rgba(255, 255, 255, 0.16);
+  --placeholder-text-color: rgba(255, 255, 255, 0.4);
+  --border-radius-big: 1.5rem;
+  --border-radius-round: 50%;
+  --form-clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+
+    /* li color */
+  --li-color: #bbf5e4;
+}
+

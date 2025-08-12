@@ -1,0 +1,112 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--body-bg);
+  font-family: var(--font-primary);
+  color: var(--primary-text);
+  overflow-x: hidden;
+}
+
+#dashboard {
+  margin: 50px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+}
+
+h2 {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--h2-color);
+  font-family: var(--font-heading);
+  margin-bottom: 30px;
+  text-shadow: 0 0 8px var(--primary-text);
+  text-transform: capitalize;
+}
+
+.post {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 20vw;
+  padding: 1.5rem;
+  background-color: var(--card-background);
+  backdrop-filter: blur(14px);
+  border-radius: var(--border-radius-big);
+  border: var(--light-border);
+  box-shadow: var(--card-box-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px var(--primary-text), 0 0 35px rgba(0, 255, 136, 0.2);
+}
+
+.post img {
+  height: 14vw;
+  width: 14vw;
+  border-radius: var(--border-radius-big);
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.post .title {
+  margin-top: 14px;
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--heading-color);
+  letter-spacing: 1px;
+  text-transform: none;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.05);
+}
+
+.post p {
+  margin: 12px 0;
+  font-size: 0.95rem;
+  font-weight: 400;
+  width: 90%;
+  text-align: center;
+  color: var(--text-muted);
+  font-family: var(--font-primary);
+}
+
+.post h3 {
+  color: var(--heading-color);
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+}
+
+.details-btn {
+  margin-top: 15px;
+  font-size: 16px;
+  width: 160px;
+  border-radius: var(--border-radius-big);
+  text-align: center;
+  padding: 10px;
+  font-family: var(--font-primary);
+  font-weight: 500;
+  color: #fff;
+  background-color: var(--button-primary);
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 0 10px var(--button-primary);
+}
+
+.details-btn:hover {
+  background-color: var(--button-primary-hover);
+  transform: scale(1.08);
+  box-shadow: 0 0 15px var(--button-primary-hover), 0 0 25px rgba(255, 255, 255, 0.1);
+}
+
+
+
+
+

@@ -1,0 +1,81 @@
+/* Body remains mostly the same */
+body {
+  color: var(--primary-text);
+  background: var(--body-bg);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  width: 97vw;
+  font-family: var(--font-primary);
+}
+
+/* Simplified header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5em 2.5em;
+  width: 99%;
+  border-bottom: 1px solid var(--nav-hover);
+  background: transparent;
+  margin-bottom: 20px;
+}
+
+/* Logo */
+#logo {
+  height: 3.5em;
+  transition: transform 0.3s ease;
+}
+
+#logo:hover {
+  transform: rotate(8deg) scale(1.1);
+}
+
+/* Navigation styles */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+nav a {
+  font-size: 1.3rem;
+  color: var(--nav-link);
+  font-family: var(--font-heading);
+  font-weight: 500;
+  margin: 0 15px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  padding: 0.3rem 0.6rem;
+  text-decoration: none;
+  background: none;
+  border: none;
+}
+
+nav a:hover {
+  color: var(--nav-hover);
+  transform: scale(1.2);
+  text-decoration: underline;
+}
+
+/* Footer - minimal and flat */
+footer {
+  background-color: transparent;
+  color: var(--footer-text);
+  font-weight: bold;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35px;
+  border-top: 1px solid var(--nav-hover);
+}
+
+footer p {
+  margin: 0;
+  padding: 8px 0;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  color: var(--footer-text);
+}

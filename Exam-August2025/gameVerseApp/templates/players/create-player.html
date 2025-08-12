@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=\, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/styles/styles.css" />
+    <title>GameVerse</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <header>
+            <!-- Navigation -->
+            <nav>
+                <!-- A link to Index/Home page -->
+                <div>
+                    <a id="logo" href="#">GameVerse</a>
+                </div>
+
+                <!-- If there is a player's profile -->
+                <div class="user">
+                    <a href="#">Games</a>
+                    <a href="#">New Game</a>
+                    <a href="#">Player's Profile</a>
+                </div>
+
+                <!-- If the player's profile has NOT been created -->
+                <div class="guest">
+                    <a href="#">New Player</a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Create Player's Profile -->
+            <section id="register">
+                <div class="form">
+                    <h2>New Player's Profile</h2>
+
+                    <!-- Create Player's Profile Form -->
+                    <form class="register-form" method="" action="">
+                        <div>
+                            <label for="id_nickname">Nickname:</label>
+                            <div class="helptext" id="id_nickname_helptext">*Allowed nicknames contain letters and
+                                digits.</div>
+
+                            <input type="text" name="nickname" maxlength="60" placeholder="Enter your nickname..."
+                                required aria-describedby="id_nickname_helptext" id="id_nickname">
+
+                        </div>
+
+                        <div>
+                            <label for="id_email">Email:</label>
+                            <input type="email" name="email" maxlength="60" placeholder="Enter a valid email..."
+                                required id="id_email">
+
+                        </div>
+
+                        <div>
+                            <label for="id_is_pro">Are you a Pro Player?</label>
+                            <input type="checkbox" name="is_pro" id="id_is_pro">
+
+                        </div>
+                        <button type="submit">Create</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy;GameVerse by SoftUni Team. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
