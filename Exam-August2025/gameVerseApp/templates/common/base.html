@@ -15,26 +15,21 @@
 <body>
 <div id="wrapper">
     <header>
-        <!-- Navigation -->
         <nav>
-            <!-- A link to Index/Home page -->
             <div>
-                <a id="logo" href="#">GameVerse</a>
+                <a id="logo" href="{% url 'index' %}">GameVerse</a>
             </div>
 
-            <!-- If there is a player's profile -->
             {% get_user as profile %}
             {% if profile %}
                 <div class="user">
-                    <a href="#">Games</a>
-                    <a href="#">New Game</a>
-                    <a href="#">Player's Profile</a>
+                    <a href="{% url 'games' %}">Games</a>
+                    <a href="{% url 'create-game' %}">New Game</a>
+                    <a href="{% url 'player-details' %}">Player's Profile</a>
                 </div>
-
-                <!-- If the player's profile has NOT been created -->
             {% else %}
                 <div class="guest">
-                    <a href="#">New Player</a>
+                    <a href="{% url 'create-player' %}">New Player</a>
                 </div>
             {% endif %}
         </nav>
@@ -43,10 +38,8 @@
     {% block content %}
     {% endblock %}
 
-
 </div>
 
-<!-- Footer -->
 <footer>
     <p>&copy;GameVerse by SoftUni Team. All rights reserved.</p>
 </footer>

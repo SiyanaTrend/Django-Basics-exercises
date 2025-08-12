@@ -4,45 +4,41 @@
 {% block content %}
 
     <main>
-        <!-- Player's Profile Details Section -->
-
         <section id="details">
             <div id="details-wrapper">
 
-                <!-- player nickname -->
-                <h2>testplayer1</h2>
+                <h2>{{ player.nickname }}</h2>
 
-                <!-- player image if Pro -->
-                <img id="details-img" src="/static/images/player-pro.png" alt="profile img"/>
+                {% if player.is_pro %}
+                    <img id="details-img" src="{% static 'images/player-pro.png' %}" alt="profile-pro img"/>
+                {% else %}
+                    <img id="details-img" src="{% static 'images/player-regular.png' %}" alt="profile regular img"/>
+                {% endif %}
 
-                <!-- player image if Regular -->
-                <img id="details-img" src="/static/images/player-regular.png" alt="profile img"/>
+                <p id="extra-data"><span>Email: </span>{{ player.email }}</p>
 
-                <!-- email -->
-                <p id="extra-data"><span>Email: </span>test@mail.com</p>
-
-                <!-- achievements if provided -->
-                <p id="extra-data"><span>Achievements: </span>Super Mario: Princess rescued;</p>
+                {% if player.achievements %}
+                    <p id="extra-data"><span>Achievements: </span>{{ player.achievements }}</p>
+                {% endif %}
 
                 <div id="info-wrapper">
                     <div id="details-description">
-
-                        <!-- if there are games, list the top 3 hardest ones (or all if games <= 3), ordered as described-->
-                        <p><span>Player's Top Games:</span></p>
-                        <ul>
-                            <!-- first game info -->
-                            <li>Challenge level 10: Diablo IV (PC Games), released on 2024-01-16</li>
-                            <!-- second game info -->
-                            <li>Challenge level 10: Grand Theft Auto V (Console Games), released on 2013-02-09</li>
-                            <!-- third game info -->
-                            <li>Challenge level 5: Fast and Furious (Console Games), released on 2020-07-10</li>
-                        </ul>
-
+                        {% if top_games %}
+                            <p><span>Player's Top Games:</span></p>
+                            <ul>
+                                {% for game in top_games %}
+                                    <li>
+                                        Challenge level {{ game.level }}: {{ game.title }} ({{ game.platform }}),
+                                        released on {{ game.release_date }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </div>
-                    <!--Edit and Delete buttons -->
+
                     <div id="action-buttons">
-                        <a href="#" id="edit-btn">Edit</a>
-                        <a href="#" id="delete-btn">Delete</a>
+                        <a href="{% url 'edit-player' %}" id="edit-btn">Edit</a>
+                        <a href="{% url 'delete-player' %}" id="delete-btn">Delete</a>
                     </div>
                 </div>
             </div>

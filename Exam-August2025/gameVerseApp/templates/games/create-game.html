@@ -3,55 +3,17 @@
 {% load static %}
 {% block content %}
 
-        <main>
-            <!-- New Game -->
-            <section id="create">
-                <div class="form">
-                    <h2>New Game</h2>
-
-                    <!-- New Game Form -->
-                    <form class="create-form" method="" action="">
-                        <div>
-                            <label for="id_title">Title:</label>
-                            <input type="text" name="title" maxlength="130" placeholder="Enter games title..." required
-                                id="id_title">
-
-                        </div>
-
-                        <div>
-                            <label for="id_platform">Platform:</label>
-                            <select name="platform" id="id_platform">
-                                <option value="PC Games">PC Games</option>
-
-                                <option value="Console Games">Console Games</option>
-
-                                <option value="Other Games" selected>Other Games</option>
-                            </select>
-
-                        </div>
-
-                        <div>
-                            <label for="id_release_date">Release Date:</label>
-                            <input type="date" name="release_date" required id="id_release_date">
-
-                        </div>
-
-                        <div>
-                            <label for="id_level">Challenge Level:</label>
-                            <input type="number" name="level" value="1" min="0" required id="id_level">
-
-                        </div>
-
-                        <div>
-                            <label for="id_screenshot_url">Screenshot URL:</label>
-                            <input type="url" name="screenshot_url" maxlength="200"
-                                placeholder="Enter screenshot URL..." id="id_screenshot_url">
-
-                        </div>
-                        <button type="submit">Create Game</button>
-                    </form>
-                </div>
-            </section>
-        </main>
+    <main>
+        <section id="create">
+            <div class="form">
+                <h2>New Game</h2>
+                <form class="create-form" method="post" action="">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit">Create Game</button>
+                </form>
+            </div>
+        </section>
+    </main>
 
 {% endblock %}

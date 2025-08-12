@@ -1,42 +1,18 @@
 {% extends 'common/base.html' %}
 
-{% load static %}
 {% block content %}
 
-        <main>
-            <!-- Create Player's Profile -->
-            <section id="register">
-                <div class="form">
-                    <h2>New Player's Profile</h2>
+    <main>
+        <section id="register">
+            <div class="form">
+                <h2>New Player's Profile</h2>
+                <form class="register-form" method="post" action="">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit">Create</button>
+                </form>
+            </div>
+        </section>
+    </main>
 
-                    <!-- Create Player's Profile Form -->
-                    <form class="register-form" method="" action="">
-                        <div>
-                            <label for="id_nickname">Nickname:</label>
-                            <div class="helptext" id="id_nickname_helptext">*Allowed nicknames contain letters and
-                                digits.</div>
-
-                            <input type="text" name="nickname" maxlength="60" placeholder="Enter your nickname..."
-                                required aria-describedby="id_nickname_helptext" id="id_nickname">
-
-                        </div>
-
-                        <div>
-                            <label for="id_email">Email:</label>
-                            <input type="email" name="email" maxlength="60" placeholder="Enter a valid email..."
-                                required id="id_email">
-
-                        </div>
-
-                        <div>
-                            <label for="id_is_pro">Are you a Pro Player?</label>
-                            <input type="checkbox" name="is_pro" id="id_is_pro">
-
-                        </div>
-                        <button type="submit">Create</button>
-                    </form>
-                </div>
-            </section>
-        </main>
-    
 {% endblock %}

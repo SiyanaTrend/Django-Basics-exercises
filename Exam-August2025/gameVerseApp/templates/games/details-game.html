@@ -4,46 +4,41 @@
 {% block content %}
 
     <main>
-        <!-- Game Details -->
         <section id="details">
             <div id="details-wrapper">
                 <h2>Game Details</h2>
-
-                <!-- game screenshot image if there is such, otherwise display the default one '/images/game-default.png' -->
-                <img src="https://cdn.pixabay.com/photo/2018/08/26/08/16/mario-3631666_1280.png"
-                     alt="Super Mario img"/>
-
-                <!-- game title -->
+            
+                {% if game.screenshot_url %}
+                    <img src="{{ game.screenshot_url }}" alt="screenshot game image"/>
+                {% else %}
+                    <img src="{% static 'images/game-default.png' %}" alt="default game image"/>
+                {% endif %}
+            
                 <p id="details-title">
-                    Super Mario
+                    {{ game.title }}
                 </p>
 
                 <div id="info-wrapper">
                     <div id="details-description">
 
-                        <!-- game release date in format "d M Y" -->
                         <p class="description">
-                            <span>Release date: </span>05 May 2008
+                            <span>Release date: </span>{{ game.release_date|date:"d M Y" }}
                         </p>
 
-                        <!-- game challenge level -->
                         <p class="description">
-                            <span>Challenge level: </span>3
+                            <span>Challenge level: </span>{{ game.level }}
                         </p>
-
-                        <!-- game platform -->
+                        
                         <p>
-                            <span>Platform: </span>PC Games
+                            <span>Platform: </span>{{ game.platform }}
                         </p>
                     </div>
 
-                    <!--Edit and Delete buttons -->
                     <div id="action-buttons">
-                        <a href="#" id="edit-btn">Edit</a>
-                        <a href="#" id="delete-btn">Delete</a>
+                        <a href="{% url 'edit-game' game.pk %}" id="edit-btn">Edit</a>
+                        <a href="{% url 'delete-game' game.pk %}" id="delete-btn">Delete</a>
                     </div>
                 </div>
-
             </div>
         </section>
     </main>

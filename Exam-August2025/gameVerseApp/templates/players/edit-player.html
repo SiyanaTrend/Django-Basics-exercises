@@ -3,44 +3,14 @@
 {% block content %}
 
     <main>
-        <!-- Edit Player's Profile -->
         <section id="register">
             <div class="form">
                 <h2>Edit Player's Profile</h2>
-
-                <!-- Edit Player's Profile Form -->
-                <form class="register-form" method="" action="">
-                    <div>
-                        <label for="id_nickname">Nickname:</label>
-                        <div class="helptext" id="id_nickname_helptext">*Allowed nicknames contain letters and
-                            digits.
-                        </div>
-
-                        <input type="text" name="nickname" value="testplayer1" maxlength="60" required
-                               aria-describedby="id_nickname_helptext" id="id_nickname">
-
-                    </div>
-
-                    <div>
-                        <label for="id_achievements">Achievements:</label>
-                        <div class="helptext" id="id_achievements_helptext">*Share your achievements.</div>
-
-                        <textarea name="achievements" cols="40" rows="10"
-                                  aria-describedby="id_achievements_helptext" id="id_achievements">
-Super Mario: Princess rescued;</textarea>
-
-                    </div>
-
-                    <div>
-                        <label for="id_is_pro">Are you a Pro Player?</label>
-
-                        <input type="checkbox" name="is_pro" id="id_is_pro" checked>
-
-                    </div>
-
+                <form class="register-form" method="post" action="">
+                    {% csrf_token %}
+                    {{ form }}
                     <button type="submit">Edit</button>
                 </form>
-
             </div>
         </section>
     </main>
